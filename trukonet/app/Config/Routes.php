@@ -70,7 +70,7 @@ $routes->group('/billpending', ['filter' => 'authenticate'], function ($routes) 
 
 
 $routes->get('/bumdesmalist', 'Master::load', ['filter' => 'authenticate']);
-$routes->get('/paket', 'Master::load', ['filter' => 'authenticate']);
+// $routes->get('/paket', 'Master::load', ['filter' => 'authenticate']);
 
 $routes->group('/paket', ['filter' => 'authenticate'], function ($routes) {
     $routes->get('/', 'Master::load');

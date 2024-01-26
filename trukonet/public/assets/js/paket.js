@@ -41,60 +41,56 @@ $(function () {
                 type: "control", width: 15, editButton: false, deleteButton: false,
                 itemTemplate: function (value, item) {
                     var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
-                    var $iconPencil = $("<i>").attr({ class: "fa fa-pencil-alt" });
-                    var $iconTrash = $("<i>").attr({ class: "fa fa-trash" });
-                    var $iconSearch = $("<i>").attr({ class: "fa fa-search" });
+                    var $iconPencil = $("<i>").attr({class: "fa fa-pencil-alt"});
+                    var $iconTrash = $("<i>").attr({class: "fa fa-trash"});
+                    // var $iconSearch = $("<i>").attr({class: "fa fa-search"});
 
                     var $customEditButton = $("<button>")
-                        .attr({ class: "btn btn-outline-primary btn-xs", style: "margin-right: 3px;" })
-                        .attr({ role: "button" })
-                        .attr({ title: jsGrid.fields.control.prototype.editButtonTooltip })
-                        .attr({ id: "btn-edit-" + item.id })
-                        .click(function (e) {
-                            //                                alert("Edit: " + item.kode_bma);
-                            showEditBma(item);
-                            // document.location.href = item.id + "/edit";
-                            e.stopPropagation();
-                        })
-                        .append($iconPencil);
+                            .attr({class: "btn btn-primary btn-xs", style: "margin-right: 5px;"})
+                            .attr({role: "button"})
+                            .attr({title: jsGrid.fields.control.prototype.editButtonTooltip})
+                            .attr({id: "btn-edit-" + item.id})
+                            .click(function (e) {
+//                                alert("Edit: " + item.kode_bma);
+                                showEditPaket(item);
+                                // document.location.href = item.id + "/edit";
+                                e.stopPropagation();
+                            })
+                            .append($iconPencil);
                     var $customDeleteButton = $("<button>")
-                        .attr({ class: "btn btn-outline-danger btn-xs", style: "margin-right: 3px;" })
-                        .attr({ role: "button" })
-                        .attr({ title: jsGrid.fields.control.prototype.deleteButtonTooltip })
-                        .attr({ id: "btn-delete-" + item.id })
-                        .click(function (e) {
-                            alert("Delete: " + item.kode_bma);
-                            // document.location.href = item.id + "/delete";
-                            e.stopPropagation();
-                        })
-                        .append($iconTrash);
-                    var $customSwitchButton = $("<button>")
-                        .attr({ class: "btn btn-outline-warning btn-xs", style: "margin-right: 3px;" })
+                            .attr({class: "btn btn-danger btn-xs", style: "margin-right: 5px;"})
+                            .attr({role: "button"})
+                            .attr({title: jsGrid.fields.control.prototype.deleteButtonTooltip})
+                            .attr({id: "btn-delete-" + item.id})
+                            .click(function (e) {
+                                // alert("Delete: " + item.kode_bma);
+                                // document.location.href = item.id + "/delete";
+                                Swal.fire({
+                                    title: "Do you want to delete the changes?",
+                                    showDenyButton: false,
+                                    showCancelButton: true,
+                                    confirmButtonText: "Delete"
+                                  }).then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                      //Swal.fire("Deleted!", "", "success"); 
+                                      deleteOdp(item.idpaket);
+                                    } 
+                                  });
+                                e.stopPropagation();
+                            })
+                            .append($iconTrash);
+                    
 
-                        .attr({ role: "button" })
-                        .attr({ title: "Detail" })
-                        .attr({ id: "btn-detail-" + item.id })
-                        .click(function (e) {
-                            //                                alert("Detail: " + item.kode_bma);
-                            var modal = document.getElementById("bmadetail-modal");
-                            var judul = document.getElementById("bmadetail-modal-title");
-                            judul.innerHTML = item.kode_bma;
-                            modal.style.display = "block";
-
-                            e.stopPropagation();
-                        })
-                        .append($iconSearch);
-
-                    return $("<div>")
-                        .append($customSwitchButton)
-                        .append($customEditButton)
-                        .append($customDeleteButton);
+                    return $("<div>")                           
+                            .append($customEditButton)
+                            .append($customDeleteButton);
 
                 }
             },
-            { title: 'IDPAKET', name: 'idpaket', soritng: false, width: 100 },
-            { title: 'NAMA_PAKET', name: 'nama_paket', soritng: false, width: 100 },
-            { title: 'TARIF', name: 'tarif', soritng: false, width: 100 },
+            { title: 'IDPAKET', name: 'idpaket', soritng: false, width: 20 },
+            { title: 'NAMA_PAKET', name: 'nama_paket', soritng: false, width: 50 },
+            { title: 'TARIF', name: 'tarif', soritng: false, width: 30 },
 
 
         ]
@@ -112,4 +108,109 @@ function showAddPaket() {
 function batalAddPaket() {
     hideComp('cardpaketlist');
     showComp('paketlist');
+};
+
+$("#formpaketlist").on("submit", function (event) {
+    var formData = {
+        idpaket: $("#idpaket_paket").text(),
+        nama_paket: $("#nama_paket_paket").val(),
+        tarif: $("#tarif_paket").val(),
+        cmd: $("#btnSimpanPaket").text(),
+    };
+    console.log("nang kene");
+    $.ajax({
+        // fixBug get url from global function only
+        // get global variable is bug!
+        url: base_url + "/paket",
+        type: 'post',
+        data: formData,
+        cache: false,
+        dataType: 'json',
+        //   beforeSend: function() {
+        //     $('#form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+        //   },
+        success: function (response) {
+            console.log(response);
+            // if (response.success === true) {
+            //     // console.log(response.message);
+
+            //     Swal.fire({
+            //         // position: "top-end",
+            //         icon: "success",
+            //         title: response.message,
+            //         // showConfirmButton: false,
+            //         // timer: 1500
+            //     }).then((result) => {
+            //         // batalAddPaket(); 
+            //         // $("#jsGridPaket").jsGrid("search", { query: '' }).done(function () {
+                        
+            //         // });
+            //     });
+                
+
+            // } else {
+            //     Swal.fire({
+            //         toast: false,                   
+            //         icon: 'error',
+            //         title: response.message,                   
+            //         timer: 3000
+            //     })
+            // }           
+        }
+    });  
+    event.preventDefault();
+});
+
+function showEditPaket(data) {  
+    hideComp('paketlist');
+    showComp('cardpaketlist');
+    setText('btnSimpanPaket', 'Edit');
+    setText('formpaketlisttitle', 'Edit Paket');
+    setText('idpaket_paket',data.idpaket);
+    setValue('nama_paket_paket',data.nama_paket);
+    setValue('tarif_paket',data.tarif);    
+};
+
+function deletePaket(data){
+    var formData = {
+        idpaket: data,
+        cmd: "delete"
+    };
+    $.ajax({
+        // fixBug get url from global function only
+        // get global variable is bug!
+        url: base_url + "/paket",
+        type: 'post',
+        data: formData,
+        cache: false,
+        dataType: 'json',
+        //   beforeSend: function() {
+        //     $('#form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+        //   },
+        success: function (response) {
+            console.log(response);
+            if (response.success === true) {
+                // console.log(response.message);
+                Swal.fire("Deleted!", "", "success"); 
+                // batalAddOdp(); 
+                $("#jsGridPaket").jsGrid("search", { query: '' }).done(function () {
+                    
+                });
+                
+                
+
+            } else {
+                Swal.fire({
+                    toast: false,
+                    //   position: 'bottom-end',
+                    icon: 'error',
+                    title: response.message,
+                    //   showConfirmButton: false,
+                    timer: 3000
+                })
+
+            }
+            // $('#form-btn').html(getSubmitText());
+        }
+    });
 };

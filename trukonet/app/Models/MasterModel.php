@@ -82,7 +82,7 @@ class MasterModel extends MBaseModel
 //        return $result;
     }
 
-   
+
 
     public function getPaketCombo($strwhere = "")
     {
@@ -290,9 +290,10 @@ FROM master_odp";
         return $response;
 
     }
+    //paket
     public function getPaketPaging($limit, $offset, $strwhere = "")
     {
-        $sql = "SELECT id, idpaket, nama_paket, tarif 
+        $sql = "SELECT  idpaket, nama_paket, tarif 
         FROM master_paket";
         if (strlen($strwhere) > 0) {
             $sql .= " where $strwhere";
@@ -308,7 +309,58 @@ FROM master_odp";
         return $response;
 
     }
-    
+
+    public function validatePaketByName($nama)
+    {
+        $sql = "SELECT  idpaket, nama_paket, tarif 
+        FROM master_paket where nama_paket='$nama'";
+
+        $result = $this->db->query($sql);
+        $retval = $result->getNumRows();
+        $result->freeResult();
+
+        $response = true;
+        if ($retval > 0) {
+            $response = false;
+        }
+
+        return $response;
+    }
+    public function validatePaketEdit($idpaket, $nama)
+    {
+        $sql = "SELECT  idpaket, nama_paket, tarif 
+        FROM master_paket where idpaket='$idpaket'";
+
+        $result = $this->db->query($sql);
+        $retval = $result->getNumRows();
+        $result->freeResult();
+
+        $valid = true;
+
+        if ($retval < 1) {
+            $valid = false;
+            // return $response;
+        }
+        if ($valid) {
+            $sql = "SELECT  idpaket, nama_paket, tarif  
+                    FROM master_paket where nama_paket='$nama' and idpaket!='$idpaket' ";
+
+            $result = $this->db->query($sql);
+            $retval = $result->getNumRows();
+            $result->freeResult();
+
+            if ($retval > 0) {
+                $valid = false;
+            }
+        }
+
+
+
+        
+
+        return $valid;
+    }
+    // end paket
 
     public function loadBma()
     {

@@ -24,7 +24,7 @@ class Paket extends BaseController {
     //put your code here
     use ResponseTrait;
 
-    protected $dbfb;
+    // protected $dbfb;
 
 //    public function __construct()
 //    {
@@ -65,8 +65,50 @@ class Paket extends BaseController {
     }
 
     public function updateRows() {
-        $model = new MasterModel();
+        // $model = new MasterModel();
+        $data 	= $this->request->getGetPost();        
+        $cmd=strtolower($data['cmd']);
+        // if($cmd == 'simpan'){
+        //     $postdata=$data;
+        //     unset($postdata["cmd"]);
+            
+        //     $model = new MasterModel();
+        //     $isValid=$model->validatePaketByName($data['nama_paket']);
+        //     if($isValid){
+        //         $retval=$model->insertBuild('master_paket',$postdata);
+        //     }
+            
+        // }
+        if($cmd == 'edit'){
+            $postdata=$data;
+            unset($postdata["cmd"]);
 
+            $model = new MasterModel();
+            // $isValid=$model->validatePaketEdit($data['idpaket'],$data['nama_paket']);
+            // if($isValid){
+            //     $retval=$model->updateBuild('master_paket',$postdata,array('idpaket'=>$data['idpaket']));
+            // }
+            // $retval=$model->updateBuild('master_paket',$postdata,array('idpaket'=>$data['idpaket']));
+
+            
+        }
+        // if($cmd == 'delete'){
+        //     $postdata=$data;
+        //     unset($postdata["cmd"]);
+
+        //     $model = new MasterModel();
+        //     $retval=$model->deleteBuild('master_paket',$postdata);
+        // }
+        $retval=1;
+        if ($retval > 0) {
+            $results['success'] = true;         
+            $results['message'] = 'Execute successfully';
+        }else{
+            $results['success'] = false;
+            $results['message'] = 'Execute Aborted!';
+        }
+      
+        return $this->response->setJSON($results);
        
     }
 
