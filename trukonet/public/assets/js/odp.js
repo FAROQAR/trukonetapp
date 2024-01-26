@@ -33,6 +33,8 @@ $(function () {
         pageLoading: true,
         pageSize: 10,
         pageIndex: 1,
+        onItemUpdated: paint,
+        onRefreshed: paint,
 
         controller: {
             loadData: function (filter) {
@@ -114,7 +116,18 @@ $(function () {
         ]
     });
 
-
+    function paint(ev){
+        $("#jsGridOdp tbody tr").each((i,tr)=>{
+            // console.log('painter');
+            if(tr.children[2]!== undefined){
+                $(tr).children().css("background-color",+tr.children[2].textContent==tr.children[5].textContent?"#EA9999":"");
+                $(tr).children().css("font-weight",+tr.children[2].textContent==tr.children[5].textContent?"bold":"normal");
+                
+            }
+            
+        //   
+        })
+      }
 
 });
 
