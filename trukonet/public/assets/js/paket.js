@@ -103,6 +103,7 @@ function showAddPaket() {
     showComp('cardpaketlist');
     setText('btnSimpanPaket', 'Simpan');
     setText('formpaketlisttitle', 'Add Paket');
+    setText('idpaket_paket','');
     resetForm('formpaketlist');    
 };
 function batalAddPaket() {
@@ -117,7 +118,7 @@ $("#formpaketlist").on("submit", function (event) {
         tarif: $("#tarif_paket").val(),
         cmd: $("#btnSimpanPaket").text(),
     };
-    console.log("nang kene");
+    // console.log("nang kene");
     $.ajax({
         // fixBug get url from global function only
         // get global variable is bug!
@@ -130,32 +131,32 @@ $("#formpaketlist").on("submit", function (event) {
         //     $('#form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
         //   },
         success: function (response) {
-            console.log(response);
-            // if (response.success === true) {
-            //     // console.log(response.message);
+            // console.log(response);
+            if (response.success === true) {
+                // console.log(response.message);
 
-            //     Swal.fire({
-            //         // position: "top-end",
-            //         icon: "success",
-            //         title: response.message,
-            //         // showConfirmButton: false,
-            //         // timer: 1500
-            //     }).then((result) => {
-            //         // batalAddPaket(); 
-            //         // $("#jsGridPaket").jsGrid("search", { query: '' }).done(function () {
+                Swal.fire({
+                    // position: "top-end",
+                    icon: "success",
+                    title: response.message,
+                    // showConfirmButton: false,
+                    // timer: 1500
+                }).then((result) => {
+                    batalAddPaket(); 
+                    $("#jsGridPaket").jsGrid("search", { query: '' }).done(function () {
                         
-            //         // });
-            //     });
+                    });
+                });
                 
 
-            // } else {
-            //     Swal.fire({
-            //         toast: false,                   
-            //         icon: 'error',
-            //         title: response.message,                   
-            //         timer: 3000
-            //     })
-            // }           
+            } else {
+                Swal.fire({
+                    toast: false,                   
+                    icon: 'error',
+                    title: response.message,                   
+                    timer: 3000
+                })
+            }           
         }
     });  
     event.preventDefault();

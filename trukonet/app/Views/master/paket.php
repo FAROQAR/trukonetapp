@@ -72,6 +72,6 @@
 </div>
 <?= $this->endSection(); ?>
 <?= $this->section('pageScript'); ?>
-<script src="<?= base_url(); ?>/assets/js/paket.js">  
+
 </script>
 <?= $this->endSection(); ?>

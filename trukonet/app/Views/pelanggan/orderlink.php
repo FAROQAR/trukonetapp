@@ -22,7 +22,7 @@
 
     <!-- Main content -->
     <section class="content" style="padding-top:10px;">
-          <?= view('pelanggan/formorderlink'); ?>
+          <?= view('pelanggan/form/formorderlink'); ?>
         <div id="orderlinklist" class="card">
             <div class="card-header">
                 <h3 class="card-title"><?= $title ?></h3>

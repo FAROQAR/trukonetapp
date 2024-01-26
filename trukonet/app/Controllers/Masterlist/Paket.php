@@ -68,38 +68,39 @@ class Paket extends BaseController {
         // $model = new MasterModel();
         $data 	= $this->request->getGetPost();        
         $cmd=strtolower($data['cmd']);
-        // if($cmd == 'simpan'){
-        //     $postdata=$data;
-        //     unset($postdata["cmd"]);
+        if($cmd == 'simpan'){
+            $postdata=$data;
+            unset($postdata["cmd"]);
             
-        //     $model = new MasterModel();
-        //     $isValid=$model->validatePaketByName($data['nama_paket']);
-        //     if($isValid){
-        //         $retval=$model->insertBuild('master_paket',$postdata);
-        //     }
+            $model = new MasterModel();
+            $isValid=$model->validatePaketByName($data['nama_paket']);
+            if($isValid){
+                $retval=$model->insertBuild('master_paket',$postdata);
+            }
             
-        // }
+        }
         if($cmd == 'edit'){
             $postdata=$data;
             unset($postdata["cmd"]);
 
             $model = new MasterModel();
-            // $isValid=$model->validatePaketEdit($data['idpaket'],$data['nama_paket']);
-            // if($isValid){
-            //     $retval=$model->updateBuild('master_paket',$postdata,array('idpaket'=>$data['idpaket']));
-            // }
+            $isValid=$model->validatePaketEdit($data['idpaket'],$data['nama_paket']);
+            if($isValid){
+                $retval=$model->updateBuild('master_paket',$postdata,array('idpaket'=>$data['idpaket']));
+            }
             // $retval=$model->updateBuild('master_paket',$postdata,array('idpaket'=>$data['idpaket']));
 
             
         }
-        // if($cmd == 'delete'){
-        //     $postdata=$data;
-        //     unset($postdata["cmd"]);
+        if($cmd == 'delete'){
+            $postdata=$data;
+            unset($postdata["cmd"]);
 
-        //     $model = new MasterModel();
-        //     $retval=$model->deleteBuild('master_paket',$postdata);
-        // }
-        $retval=1;
+            $model = new MasterModel();
+            $retval=$model->deleteBuild('master_paket',$postdata);
+        }
+        
+        
         if ($retval > 0) {
             $results['success'] = true;         
             $results['message'] = 'Execute successfully';
@@ -111,5 +112,7 @@ class Paket extends BaseController {
         return $this->response->setJSON($results);
        
     }
+
+    
 
 }
