@@ -48,6 +48,8 @@ class Odp extends BaseController
     {
         $limit = isset($_GET['pageSize']) ? $this->request->getGet('pageSize') : 10;
         $pageIndex = isset($_GET['pageIndex']) ? $this->request->getGet('pageIndex') : 0;
+        $sortField = isset($_GET['sortField']) ? $this->request->getGet('sortField') : 'id';
+        $sortOrder = isset($_GET['sortOrder']) ? $this->request->getGet('sortOrder') : 'asc';
         $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
         $offset = ($pageIndex - 1) * $limit;
         // if($offset < 1){
@@ -57,10 +59,11 @@ class Odp extends BaseController
         //        startIndex = (filter.pageIndex - 1) * filter.pageSize
         $where = '';
         if (strlen($search) > 0) {
-            $where = "(idcore like'%$search%' or id_server like'%$search%')";
+            $where = "(idcore like'%$search%' or idodp like'%$search%')";
         }
+        
         $model = new MasterModel();
-        $result = $model->getOdpPaging($limit, $offset, $where);
+        $result = $model->getOdpPaging($limit, $offset, $where,$sortField,$sortOrder);
 
         $result['success'] = true;
 

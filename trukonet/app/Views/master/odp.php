@@ -13,13 +13,17 @@
                         <!--                        <div class="btn btn-success btn-sm" style="margin-right: 3px;">
                             <div class="fa fa-plus" onclick="showAddBma" role="button" ></div>
                         </div>-->
+                        <!-- <div type="button" class="btn btn-warning btn-sm" style="margin-right: 3px;"
+                             id="sortodp">
+                            <i class="fa fa-sort"></i>
+                        </div> -->
                         <div type="button" class="btn btn-success btn-sm" style="margin-right: 3px;"
                             onclick="showAddOdp()">
                             <i class="fa fa-plus"></i>
                         </div>
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <input type="text" id="searchodp" name="table_search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
+                            <button class="btn btn-default" onClick="cariOdp()">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>

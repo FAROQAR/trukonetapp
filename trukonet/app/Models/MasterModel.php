@@ -272,12 +272,16 @@ FROM master_servercore";
         return $response;
 
     }
-    public function getOdpPaging($limit, $offset, $strwhere = "")
+    public function getOdpPaging($limit, $offset, $strwhere = "",$sortField="id",$sortOrder="asc")
     {
         $sql = "SELECT id, idodp, slot, idcore, ratio, slot_use, odp_loc, latitude, longitude 
 FROM master_odp";
         if (strlen($strwhere) > 0) {
             $sql .= " where $strwhere";
+        }
+        if ((strlen($sortField) > 0 ) && (strlen($sortOrder) > 0 )) {
+            $sql .= " order by $sortField $sortOrder";
+            // $sql .= " order by id asc";
         }
         $result = $this->db->query($sql . " limit $offset,$limit");
         $response['data'] = $result->getResultArray();

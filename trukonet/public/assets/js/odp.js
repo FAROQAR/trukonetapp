@@ -27,7 +27,7 @@ $(function () {
         height: "auto",
         width: "100%",
 
-        sorting: true,
+        sorting: true,        
         paging: true,
         autoload: true,
         pageLoading: true,
@@ -108,11 +108,12 @@ $(function () {
 
                 }
             },
-            { title: 'ID', name: 'idodp', soritng: false, width: 20 },
-            { title: 'SLOT', name: 'slot', soritng: false, width: 20 },
-            { title: 'IDCORE', name: 'idcore', soritng: false, width: 20 },
-            { title: 'RATIO', name: 'ratio', soritng: false, width: 25 },
-            { title: 'SLOT_USE', name: 'slot_use', soritng: false, width: 20 }
+            { title: 'IDN', name: 'id', type: "number",width: 20, visible:false },
+            { title: 'ID', name: 'idodp', type: "number",width: 20 },
+            { title: 'SLOT', name: 'slot', type: "text",  width: 20 },
+            { title: 'IDCORE', name: 'idcore',type: "text",  width: 20 },
+            { title: 'RATIO', name: 'ratio',type: "text",  width: 25 },
+            { title: 'SLOT_USE', name: 'slot_use', type: "text", width: 20 }
         ]
     });
 
@@ -128,10 +129,27 @@ $(function () {
         //   
         })
       }
+      
 
 });
+$(document).ready(function () {
+    // $("#searchodp").on("keyup", function () {
+    //     var ret = $(this).val().toLowerCase();
+    //     $("#jsGridOdp").jsGrid("search", { query: ret }).done(function () {
+    //         // console.log("filtering completed ");
+    //     });
+    // });
+});
+function cariOdp() {
+    var ret = $("#searchodp").val();
 
-
+    $("#jsGridOdp").jsGrid("search", { query: ret }).done(function () {
+        // console.log("filtering completed ");
+    });
+}
+// $("#jsGridOdp").on('sortTable',function(event){
+//     console.log('sortir');
+//   });
 
 $("#formodplist").on("submit", function (event) {
     var formData = {
