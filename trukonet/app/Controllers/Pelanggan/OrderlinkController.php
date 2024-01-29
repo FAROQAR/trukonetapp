@@ -296,7 +296,8 @@ class OrderlinkController extends BaseController
     public function generateRandomPassword()
     {
         $password = '';
-        $passwordSets = ['1234567890', '$@#!?', 'ABCDEFGHJKLMNPQRSTUVWXYZ', 'abcdefghjkmnpqrstuvwxyz'];
+        // $passwordSets = ['1234567890', '$@#!?', 'ABCDEFGHJKLMNPQRSTUVWXYZ', 'abcdefghjkmnpqrstuvwxyz'];
+        $passwordSets = ['1234567890', 'ABCDEFGHJKLMNPQRSTUVWXYZ'];
 
         //Get random character from the array
         foreach ($passwordSets as $passwordSet) {

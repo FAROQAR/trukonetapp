@@ -114,7 +114,7 @@ $routes->get('loadadusuncombo', 'Pelanggan\OrderlinkController::getDusunCombo');
 $routes->get('loadodpcombo', 'Pelanggan\OrderlinkController::getOdpCombo');
 
 $routes->post('setRegister', 'Pelanggan\OrderlinkController::updateRegister');
-// $routes->get('genPassword', 'Pelanggan\OrderlinkController::generateRandomPassword');
+$routes->get('genPassword', 'Pelanggan\OrderlinkController::generateRandomPassword');
 $routes->get('loadpasang', 'Pelanggan\OrderlinkController::getPasangLoad');
 $routes->post('setPasang', 'Pelanggan\OrderlinkController::updatePasang');
 
