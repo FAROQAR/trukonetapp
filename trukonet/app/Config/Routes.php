@@ -111,10 +111,12 @@ $routes->get('loadpaketcombo', 'Pelanggan\OrderlinkController::getPaketCombo');
 $routes->get('loadakecamatancombo', 'Pelanggan\OrderlinkController::getKecamatanCombo');
 $routes->get('loadadesacombo', 'Pelanggan\OrderlinkController::getDesaCombo');
 $routes->get('loadadusuncombo', 'Pelanggan\OrderlinkController::getDusunCombo');
+$routes->get('loadodpcombo', 'Pelanggan\OrderlinkController::getOdpCombo');
 
 $routes->post('setRegister', 'Pelanggan\OrderlinkController::updateRegister');
-
-
+// $routes->get('genPassword', 'Pelanggan\OrderlinkController::generateRandomPassword');
+$routes->get('loadpasang', 'Pelanggan\OrderlinkController::getPasangLoad');
+$routes->post('setPasang', 'Pelanggan\OrderlinkController::updatePasang');
 
 
 $routes->get('loadBillpending', 'Billing\Billpending::getRows');

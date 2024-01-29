@@ -60,6 +60,113 @@ $('#customer_reg_kecamatan').on('change', function(){
     // console.log(cd);
     // setText('#customer_reg_area_code',kec);    
    });   
+// $(function () {
+//     $("#jsGridOrderlink").jsGrid({
+//         height: "auto",
+//         width: "100%",
+
+//         sorting: true,
+//         paging: true,
+//         autoload: true,
+//         pageLoading: true,
+//         pageSize: 10,
+//         pageIndex: 1,
+
+//         controller: {
+//             loadData: function (filter) {
+//                 //                var base_url = window.location.origin;
+//                 var d = $.Deferred();
+//                 $.ajax({
+//                     url: base_url + "/loadOrderlink",
+//                     data: filter,
+//                     dataType: "json",
+//                     success: function (response) {
+//                         var ret = {
+//                             data: response.data,
+//                             itemsCount: response.totalCount
+//                         };
+//                         d.resolve(ret);
+//                     }
+//                 });
+
+//                 return d.promise();
+//             }
+//         },
+//         fields: [
+//             {
+//                 type: "control", width: 100, editButton: false, deleteButton: false,
+//                 itemTemplate: function (value, item) {
+//                     var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+//                     var $iconPencil = $("<i>").attr({ class: "fa fa-pencil-alt" });
+//                     var $iconTrash = $("<i>").attr({ class: "fa fa-trash" });
+//                     var $iconSearch = $("<i>").attr({ class: "fa fa-search" });
+
+//                     var $customEditButton = $("<button>")
+//                         .attr({ class: "btn btn-outline-primary btn-xs", style: "margin-right: 3px;" })
+//                         .attr({ role: "button" })
+//                         .attr({ title: jsGrid.fields.control.prototype.editButtonTooltip })
+//                         .attr({ id: "btn-edit-order-" + item.id })
+//                         .click(function (e) {
+//                             //                                alert("Edit: " + item.kode_bma);
+//                             showEditOrderlink(item);
+//                             // document.location.href = item.id + "/edit";
+//                             e.stopPropagation();
+//                         })
+//                         .append($iconPencil);
+//                     var $customDeleteButton = $("<button>")
+//                         .attr({ class: "btn btn-outline-danger btn-xs", style: "margin-right: 3px;" })
+//                         .attr({ role: "button" })
+//                         .attr({ title: jsGrid.fields.control.prototype.deleteButtonTooltip })
+//                         .attr({ id: "btn-delete-order-" + item.id })
+//                         .click(function (e) {
+//                             alert("Delete: " + item.kode_bma);
+//                             // document.location.href = item.id + "/delete";
+//                             e.stopPropagation();
+//                         })
+//                         .append($iconTrash);
+//                     var $customSwitchButton = $("<button>")
+//                         .attr({ class: "btn btn-outline-warning btn-xs", style: "margin-right: 3px;" })
+
+//                         .attr({ role: "button" })
+//                         .attr({ title: "Detail" })
+//                         .attr({ id: "btn-detail-order-" + item.id })
+//                         .click(function (e) {
+//                             //                                alert("Detail: " + item.kode_bma);
+//                             var modal = document.getElementById("orderlinkdetail-modal");
+//                             var judul = document.getElementById("orderlinkdetail-modal-title");
+//                             judul.innerHTML = item.kode_bma;
+//                             modal.style.display = "block";
+
+//                             e.stopPropagation();
+//                         })
+//                         .append($iconSearch);
+
+//                     return $("<div>")
+//                         .append($customSwitchButton)
+//                         .append($customEditButton)
+//                         .append($customDeleteButton);
+
+//                 }
+//             },
+//             { title: 'NO', name: 'counter', soritng: false, width: 65 },
+//             { title: 'ID', name: 'no', soritng: false, width: 50 },
+//             { title: 'NAMA', name: 'nama', soritng: false, width: 200 },
+//             { title: 'KONTAK', name: 'kontak', soritng: false, width: 130 },
+//             { title: 'DESA', name: 'desa', soritng: false, width: 100 },
+//             { title: 'DUSUN', name: 'dusun', soritng: false, width: 100 },
+//             { title: 'RT/RW', name: 'rtrw', soritng: false, width: 100 },
+//             { title: 'AREA CODE', name: 'areacode', soritng: false, width: 100 },
+//             { title: 'PAKET', name: 'paket', soritng: false, width: 100 },
+//             { title: 'IDPEL', name: 'idpel', soritng: false, width: 130 },
+//             { title: 'ODP', name: 'odp', soritng: false, width: 100 },
+//             { title: 'MODEM SN', name: 'modemsn', soritng: false, width: 130 },
+            
+//             // { title: 'TGL ON', name: 'tgl on', soritng: false, width: 100 },
+
+//         ]
+//     });
+
+// });
 $(function () {
     $("#jsGridOrderlink").jsGrid({
         height: "auto",
@@ -71,6 +178,8 @@ $(function () {
         pageLoading: true,
         pageSize: 10,
         pageIndex: 1,
+        onItemUpdated: paint,
+        onRefreshed: paint,
 
         controller: {
             loadData: function (filter) {
@@ -94,15 +203,17 @@ $(function () {
         },
         fields: [
             {
-                type: "control", width: 100, editButton: false, deleteButton: false,
+                type: "control", width: 150, editButton: false, deleteButton: false,
                 itemTemplate: function (value, item) {
                     var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
                     var $iconPencil = $("<i>").attr({ class: "fa fa-pencil-alt" });
                     var $iconTrash = $("<i>").attr({ class: "fa fa-trash" });
-                    var $iconSearch = $("<i>").attr({ class: "fa fa-search" });
+                    var $iconSearch = $("<i>").attr({ class: "fa fa-wrench" });
+                    var $iconLink = $("<i>").attr({ class: "fa fa-link" });
+                    var $iconPrint = $("<i>").attr({ class: "fa fa-print" });
 
                     var $customEditButton = $("<button>")
-                        .attr({ class: "btn btn-outline-primary btn-xs", style: "margin-right: 3px;" })
+                        .attr({ class: "btn btn-primary btn-xs", style: "margin-right: 3px;" })
                         .attr({ role: "button" })
                         .attr({ title: jsGrid.fields.control.prototype.editButtonTooltip })
                         .attr({ id: "btn-edit-order-" + item.id })
@@ -114,7 +225,7 @@ $(function () {
                         })
                         .append($iconPencil);
                     var $customDeleteButton = $("<button>")
-                        .attr({ class: "btn btn-outline-danger btn-xs", style: "margin-right: 3px;" })
+                        .attr({ class: "btn btn-danger btn-xs", style: "margin-right: 3px;" })
                         .attr({ role: "button" })
                         .attr({ title: jsGrid.fields.control.prototype.deleteButtonTooltip })
                         .attr({ id: "btn-delete-order-" + item.id })
@@ -124,52 +235,124 @@ $(function () {
                             e.stopPropagation();
                         })
                         .append($iconTrash);
-                    var $customSwitchButton = $("<button>")
-                        .attr({ class: "btn btn-outline-warning btn-xs", style: "margin-right: 3px;" })
+                        var $customLinkButton = $("<button>")
+                        .attr({ class: "btn btn-success btn-xs", style: "margin-right: 3px;" })
 
                         .attr({ role: "button" })
-                        .attr({ title: "Detail" })
+                        .attr({ title: "Aktivasi" })
+                        .attr({ id: "btn-aktivasi-order-" + item.id })
+                        .click(function (e) {                            
+
+                            e.stopPropagation();
+                        })
+                        .append($iconLink);
+                        var $customSwitchButton = $("<button>")
+                        .attr({ class: "btn btn-warning btn-xs", style: "margin-right: 3px;" })
+
+                        .attr({ role: "button" })
+                        .attr({ title: "Pasang" })
                         .attr({ id: "btn-detail-order-" + item.id })
                         .click(function (e) {
-                            //                                alert("Detail: " + item.kode_bma);
-                            var modal = document.getElementById("orderlinkdetail-modal");
-                            var judul = document.getElementById("orderlinkdetail-modal-title");
-                            judul.innerHTML = item.kode_bma;
-                            modal.style.display = "block";
+                           if(item.status == 'pasang'){
+                                Swal.fire({
+                                    // position: "top-end",
+                                    icon: "warning",
+                                    title: "Dalam Proses Pemasangan",
+                                    // showConfirmButton: false,
+                                    // timer: 1500
+                                });
+                           }else{
+                            showPasang(item);
+                           }
+                            
+                            e.stopPropagation();
+                        })
+                        .append($iconSearch);
+                    var $customPrintButton = $("<button>")
+                        .attr({ class: "btn btn-info btn-xs", style: "margin-right: 3px;" })
 
+                        .attr({ role: "button" })
+                        .attr({ title: "Cetak label" })
+                        .attr({ id: "btn-cetaklabel-order-" + item.id })
+                        .click(function (e) {                            
+
+                            e.stopPropagation();
+                        })
+                        .append($iconPrint);
+
+                        var $customSwitchButton = $("<button>")
+                        .attr({ class: "btn btn-warning btn-xs", style: "margin-right: 3px;" })
+
+                        .attr({ role: "button" })
+                        .attr({ title: "Pasang" })
+                        .attr({ id: "btn-detail-order-" + item.id })
+                        .click(function (e) {
+                           if(item.status == 'pasang'){
+                                Swal.fire({
+                                    // position: "top-end",
+                                    icon: "warning",
+                                    title: "Dalam Proses Pemasangan",
+                                    // showConfirmButton: false,
+                                    // timer: 1500
+                                });
+                           }else{
+                            showPasang(item);
+                           }
+                            
                             e.stopPropagation();
                         })
                         .append($iconSearch);
 
                     return $("<div>")
-                        .append($customSwitchButton)
+                        
                         .append($customEditButton)
-                        .append($customDeleteButton);
+                        .append($customDeleteButton)
+                        .append($customSwitchButton)
+                        .append($customPrintButton)                        
+                        .append($customLinkButton);
 
                 }
             },
-            { title: 'NO', name: 'counter', soritng: false, width: 65 },
-            { title: 'ID', name: 'no', soritng: false, width: 50 },
-            { title: 'NAMA', name: 'nama', soritng: false, width: 200 },
-            { title: 'KONTAK', name: 'kontak', soritng: false, width: 130 },
-            { title: 'DESA', name: 'desa', soritng: false, width: 100 },
-            { title: 'DUSUN', name: 'dusun', soritng: false, width: 100 },
-            { title: 'RT/RW', name: 'rtrw', soritng: false, width: 100 },
-            { title: 'AREA CODE', name: 'areacode', soritng: false, width: 100 },
-            { title: 'PAKET', name: 'paket', soritng: false, width: 100 },
-            { title: 'IDPEL', name: 'idpel', soritng: false, width: 130 },
-            { title: 'ODP', name: 'odp', soritng: false, width: 100 },
-            { title: 'MODEM SN', name: 'modemsn', soritng: false, width: 130 },
+            {title: 'ID', name:'id', soritng: false, width: 80},
+            {title: 'NO_REG', name:'no_reg', soritng: false, width: 100},
+            {title: 'NAMA', name:'nama', soritng: false, width: 200},
+            {title: 'NO_KTP', name:'no_ktp', soritng: false, width: 130},
+            {title: 'KONTAK', name:'kontak', soritng: false, width: 130},
+            {title: 'KECAMATAN', name:'kecamatan', soritng: false, width: 110},
+            {title: 'DESA', name:'desa', soritng: false, width: 100},
+            {title: 'DUSUN', name:'dusun', soritng: false, width: 100},
+            {title: 'RT_RW', name:'rt_rw', soritng: false, width: 100},
+            {title: 'PAKET', name:'paket', soritng: false, width: 100},
+            {title: 'CODE', name:'area_code', soritng: false, width: 100},
+            {title: 'IDPEL', name:'id_pelanggan', soritng: false, width: 130},
+            {title: 'ODP', name:'odp', soritng: false, width: 100},
+            {title: 'MODEM_SN', name:'modem_sn', soritng: false, width: 130},
+            {title: 'WIFI_ID', name:'wifi_id', soritng: false, width: 100},
+            {title: 'WIFI_PASS', name:'wifi_pass', soritng: false, width: 100},
+            {title: 'STATUS', name:'status', soritng: false, width: 100},
+            {title: 'REG', name:'tgl_reg', soritng: false, width: 100},
+            {title: 'PASANG', name:'tgl_pasang', soritng: false, width: 100},
+            {title: 'ON', name:'tgl_on', soritng: false, width: 100},
+
             
             // { title: 'TGL ON', name: 'tgl on', soritng: false, width: 100 },
 
         ]
     });
-
+    function paint(ev){
+        $("#jsGridOrderlink tbody tr").each((i,tr)=>{
+            // console.log(tr.children[17]);
+            if(tr.children[17]!== undefined){
+                $(tr).children().css("background-color",+tr.children[17].textContent==="pasang"?"#EA9999":"");
+                $(tr).children().css("font-weight",+tr.children[17].textContent==="pasang"?"bold":"normal");
+                
+            }
+            
+        //   
+        })
+      }
 });
 
-// $('#tglpembentukan').datetimepicker({ format: 'DD-MM-YYYY' });
-// $("#jsGridOrderlink").
 function showAddOrderLink() {
     //    var list = getComp('formbmalisttitle');
     //    console.log(list);
@@ -226,10 +409,49 @@ function batalAddOrderlink() {
 }
 ;
 function batalAddregister(){
-    hideComp('cardregisterlist');
+    hideComp('cardregisterlist'); 
     showComp('orderlinklist');
 }
+function batalAddpasang(){
+    hideComp('cardpasanglist'); 
+    showComp('orderlinklist');
+}
+function showPasang(item) {
+    //    var list = getComp('formbmalisttitle');
+    //    console.log(list);
+    hideComp('orderlinklist');
+    showComp('cardpasanglist');
+    setText('btnSimpanpasang', 'Simpan');
+    setText('formpasanglisttitle', 'Link User');
+    resetForm('formpasanglist');
+    $.ajax({
+        url: base_url + "/loadpasang",
+        data: {no_reg:item.no_reg, area_code:item.area_code},
+        dataType: "json",
+        success: function (response) {
+           
+            // idpel = ret.data.idpel;
+            setText('customer_reg_id_pelanggan', response.data.id_pelanggan);
+            setText('customer_reg_no_reg_pasang', item.no_reg);
+            setText('customer_reg_wifi_id', response.data.wifi_id);
+            setText('customer_reg_wifi_pass', response.data.wifi_pass);
+            setText('customer_reg_area_code_pasang', item.area_code);
 
+        }
+    });
+    $.ajax({
+        url: base_url + "/loadodpcombo",
+        method:'GET',
+        // data: {no_reg:item.no_reg, area_code:item.area_code},
+        // dataType: "json",
+        success: function (response) {
+            // idpel = ret.data.idpel;
+            $("#customer_reg_odp").html(response.data);
+
+        }
+    });
+   
+}
 function simpanAddOrderLink(id, text) {
     alert(text);
 }
@@ -246,92 +468,25 @@ $("#customer_reg_rt_rw").on("input", function (e) {
     var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})/);
     e.target.value = !x[2] ? x[1] : x[1] + '/' + x[2];
 });
-function getTextOrder(id){
-    var cmp=document.getElementById(id);
-    return cmp.textContent;
-}
 function simpanRegister(){
-    var vid = document.getElementById("#customer_reg_id");
-    var vno_reg = document.getElementById("#customer_reg_no_reg");
-    var varea_code = document.getElementById("#customer_reg_area_code");
-   
-    // var formData = {
-    //     id:vid.textContent,
-    //     no_reg:vno_reg.textContent,
-    //     nama:("#customer_reg_nama").val(),
-    //     no_ktp:("#customer_reg_no_ktp").val(),
-    //     kontak:("#customer_reg_kontak").val(),
-    //     kecamatan:("#customer_reg_kecamatan").val(),
-    //     desa:("#customer_reg_desa").val(),
-    //     dusun:("#customer_reg_dusun").val(),
-    //     rt_rw:("#customer_reg_rt_rw").val(),
-    //     paket:("#customer_reg_paket").val(),
-    //     area_code:varea_code.textContent,
-    //     cmd: $("#btnSimpanOdp").text() +"reg",
-    // };
-    // $.ajax({
-    //     // fixBug get url from global function only
-    //     // get global variable is bug!
-    //     url: base_url + "/setRegister",
-    //     type: 'post',
-    //     data: formData,
-    //     cache: false,
-    //     dataType: 'json',
-    //     //   beforeSend: function() {
-    //     //     $('#form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
-    //     //   },
-    //     success: function (response) {
-    //         console.log(response);
-    //         if (response.success === true) {
-    //             // console.log(response.message);
-
-    //             Swal.fire({
-    //                 // position: "top-end",
-    //                 icon: "success",
-    //                 title: response.message,
-    //                 // showConfirmButton: false,
-    //                 // timer: 1500
-    //             }).then((result) => {
-    //                 batalAddregister(); 
-    //                 // $("#jsGridOdp").jsGrid("search", { query: '' }).done(function () {
-                        
-    //                 // });
-    //             });
-                
-
-    //         } else {
-    //             Swal.fire({
-    //                 toast: false,
-    //                 //   position: 'bottom-end',
-    //                 icon: 'error',
-    //                 title: response.message,
-    //                 //   showConfirmButton: false,
-    //                 timer: 3000
-    //             })
-
-    //         }
-    //         // $('#form-btn').html(getSubmitText());
-    //     }
-    // });
-}
-$("#formregisterlist").on("submit", function (event) {
-    var vid = document.getElementById("#customer_reg_id");
-    var vno_reg = document.getElementById("#customer_reg_no_reg");
-    var varea_code = document.getElementById("#customer_reg_area_code");
-   
+    // myForm = document.forms.formregisterlist;
+    // var vid=getSelectorText('customer_reg_id');
+    // var vno_reg=document.querySelector("#customer_reg_dusun");
+    // console.log(vno_reg.selectedOptions.length);
+    // return;
     var formData = {
-        id:vid.textContent,
-        no_reg:vno_reg.textContent,
-        nama:("#customer_reg_nama").val(),
-        no_ktp:("#customer_reg_no_ktp").val(),
-        kontak:("#customer_reg_kontak").val(),
-        kecamatan:("#customer_reg_kecamatan").val(),
-        desa:("#customer_reg_desa").val(),
-        dusun:("#customer_reg_dusun").val(),
-        rt_rw:("#customer_reg_rt_rw").val(),
-        paket:("#customer_reg_paket").val(),
-        area_code:varea_code.textContent,
-        cmd: $("#btnSimpanOdp").text() +"reg",
+        id:getSelectorText('customer_reg_id'),
+        no_reg:getSelectorText('customer_reg_no_reg'),
+        nama:getSelectorValue('customer_reg_nama'),
+        no_ktp:getSelectorValue('customer_reg_no_ktp'),
+        kontak:getSelectorValue('customer_reg_kontak'),
+        kecamatan:getSelectorValue('customer_reg_kecamatan'),
+        desa:getSelectorValue('customer_reg_desa'),
+        dusun:getSelectorOptionText('customer_reg_dusun'),
+        rt_rw:getSelectorValue('customer_reg_rt_rw'),
+        paket:getSelectorValue('customer_reg_paket'),
+        area_code:getSelectorText('customer_reg_area_code'),
+        cmd: getSelectorText('btnSimpanregister') + "reg",
     };
     $.ajax({
         // fixBug get url from global function only
@@ -341,9 +496,6 @@ $("#formregisterlist").on("submit", function (event) {
         data: formData,
         cache: false,
         dataType: 'json',
-        //   beforeSend: function() {
-        //     $('#form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
-        //   },
         success: function (response) {
             console.log(response);
             if (response.success === true) {
@@ -357,9 +509,9 @@ $("#formregisterlist").on("submit", function (event) {
                     // timer: 1500
                 }).then((result) => {
                     batalAddregister(); 
-                    // $("#jsGridOdp").jsGrid("search", { query: '' }).done(function () {
+                    $("#jsGridOrderlink").jsGrid("search", { query: '' }).done(function () {
                         
-                    // });
+                    });
                 });
                 
 
@@ -371,16 +523,68 @@ $("#formregisterlist").on("submit", function (event) {
                     title: response.message,
                     //   showConfirmButton: false,
                     timer: 3000
-                })
-
-            }
-            // $('#form-btn').html(getSubmitText());
+                });
+            }           
         }
     });
-    // alert("Handler for `submit` called.");
-    event.preventDefault();
-});
+};
 
+function simpanPasang(){
+    // myForm = document.forms.formregisterlist;
+    // var vid=getSelectorText('customer_reg_id');
+    // var vno_reg=document.querySelector("#customer_reg_dusun");
+    // console.log(vno_reg.selectedOptions.length);
+    // return;
+    var formData = {        
+        no_reg:getSelectorText('customer_reg_no_reg_pasang'),
+        area_code:getSelectorText('customer_reg_area_code_pasang'),
+        id_pelanggan:getSelectorValue('customer_reg_id_pelanggan'),
+        odp:getSelectorValue('customer_reg_odp'),
+        modem_sn:getSelectorValue('customer_reg_modem_sn'),
+        wifi_id:getSelectorText('customer_reg_wifi_id'),
+        wifi_pass:getSelectorText('customer_reg_wifi_pass'),
+        cmd: getSelectorText('btnSimpanpasang') + "pasang",
+    };
+    $.ajax({
+        // fixBug get url from global function only
+        // get global variable is bug!
+        url: base_url + "/setPasang",
+        type: 'post',
+        data: formData,
+        cache: false,
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            if (response.success === true) {
+                // console.log(response.message);
+
+                Swal.fire({
+                    // position: "top-end",
+                    icon: "success",
+                    title: response.message,
+                    // showConfirmButton: false,
+                    // timer: 1500
+                }).then((result) => {
+                    batalAddpasang(); 
+                    $("#jsGridOrderlink").jsGrid("search", { query: '' }).done(function () {
+                        
+                    });
+                });
+                
+
+            } else {
+                Swal.fire({
+                    toast: false,
+                    //   position: 'bottom-end',
+                    icon: 'error',
+                    title: response.message,
+                    //   showConfirmButton: false,
+                    timer: 3000
+                });
+            }           
+        }
+    });
+};
 // var kontakreg = document.getElementById('customer_reg_kontak');
 // // var myForm = document.forms.formregisterlist;
 // // var result = document.getElementById('result');  // only for debugging purposes

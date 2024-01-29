@@ -5,7 +5,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form id="formregisterlist" class="form-horizontal" method="POST">
+    <form id="formregisterlist" class="form-horizontal" >
         <div class="card-body">
             <div class="form-group row">
                 <label for="customer_reg_id" class="col-sm-1e col-form-label">ID</label>
@@ -90,21 +90,8 @@
                     <!-- <input type="text" class="form-control" id="customer_reg_paket" name="paket" placeholder="paket"> -->
                     <select class="form-control" id="customer_reg_paket" name="paket" placeholder="paket" required>
                     </select>
-                </div>
-
-                <!-- <label for="modem_sn" class="col-sm-1 col-form-label">Modem SN</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="modemsnregister" placeholder="Modem SN">
-                </div> -->
-            </div>
-            <!-- <div class="form-group row">
-                <div class="offset-sm-1 col-sm-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="aktif">
-                        <label class="form-check-label" for="exampleCheck2">Status Aktif</label>
-                    </div>
-                </div>
-            </div> -->
+                </div>               
+            </div>            
         </div>
         <!-- /.card-body -->
 
@@ -112,7 +99,7 @@
 
             <button type="button" class="btn btn-danger" onclick="batalAddregister()">Batal</button>
             <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button> -->
-            <button id="btnSimpanregister" type="submit" class="btn btn-primary">Simpan</button>
+            <button id="btnSimpanregister" class="btn btn-primary" type="button" onclick="simpanRegister()">Simpan</button>
         </div>
     </form>
 </div>

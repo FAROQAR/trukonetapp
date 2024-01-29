@@ -28,7 +28,23 @@ function getText(id){
     var cmp=document.getElementById(id);
     return cmp.textContent;
 }
-
+function getSelectorText(id){
+    var cmp=document.querySelector("#" + id);
+    return cmp.textContent;
+}
+function getSelectorValue(id){
+    var cmp=document.querySelector("#" + id);
+    return cmp.value;
+}
+function getSelectorOptionText(id){
+    var cmp=document.querySelector("#" + id);
+    var retval = '';
+    if(cmp.selectedOptions.length>0){
+        retval =cmp.selectedOptions[0].text
+    }
+    
+    return retval;
+}
 function setValue(id,invalue){
     document.getElementById(id).value=invalue;
     

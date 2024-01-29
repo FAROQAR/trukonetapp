@@ -2,36 +2,17 @@
 <?= $this->section('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <!-- <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1><?= $title ?></h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?= $breadcrumbhref ?>"><?= $breadcrumbhreftext ?></a></li>
-              <li class="breadcrumb-item active"><?= $breadcrumbactive ?></li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
+<div class="content-wrapper">   
     <!-- Main content -->
     <section class="content" style="padding-top:10px;">
           <?= view('pelanggan/form/formorderlink'); ?>
+          <?= view('pelanggan/form/formpasang'); ?>
         <div id="orderlinklist" class="card">
             <div class="card-header">
                 <h3 class="card-title"><?= $title ?></h3>
                 <div class="card-tools">
 
                     <div class="input-group input-group-sm" style="width: 250px;">
-<!--                        <div class="btn btn-success btn-sm" style="margin-right: 3px;">
-                            <div class="fa fa-plus" onclick="showAddBma" role="button" ></div>
-                        </div>-->
                         <div type="button" class="btn btn-success btn-sm" style="margin-right: 3px;" onclick="showAddOrderLink()">
                             <i class="fa fa-plus" ></i>
                         </div>
