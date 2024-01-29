@@ -26,7 +26,7 @@
             <div class="form-group row">
                 <label for="tarif_paket" class="col-sm-1 col-form-label">TARIF</label>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control" id="tarif_paket" name="tarif" placeholder="tarif paket">
+                    <input type="text" class="form-control" id="tarif_paket" name="tarif" placeholder="tarif paket">
                 </div>
 
             </div>

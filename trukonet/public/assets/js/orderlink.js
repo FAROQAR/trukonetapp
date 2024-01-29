@@ -3,8 +3,63 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
  */
 
+$(document).ready(function () {
+    var app = {
+        show: function () {
+            $.ajax({
+                url: base_url + "/loadpaketcombo",
+                method: "GET",
+                success: function (response) {
+                    $("#customer_reg_paket").html(response.data)
+                }
+            });
+            $.ajax({
+                url: base_url + "/loadakecamatancombo",
+                method: "GET",
+                success: function (response) {
+                    $("#customer_reg_kecamatan").html(response.data)
+                }
+            });
+        }
+    }
+    app.show();
+    
 
+});
 
+$('#customer_reg_kecamatan').on('change', function(){
+    var kec = $(this).val();
+    $.ajax({
+        url: base_url + "/loadadesacombo",
+        method: "GET",
+        data:{
+            query:kec
+        },
+        success: function (response) {
+            $("#customer_reg_desa").html(response.data)
+        }
+    });
+   });
+   $('#customer_reg_desa').on('change', function(){
+    var kec = $(this).val();
+    $.ajax({
+        url: base_url + "/loadadusuncombo",
+        method: "GET",
+        data:{
+            query:kec
+        },
+        success: function (response) {
+            $("#customer_reg_dusun").html(response.data)
+        }
+    });
+   });   
+   $('#customer_reg_dusun').on('change', function(){
+    var kec = $(this).val();
+    var cd = document.getElementById('customer_reg_area_code');
+    cd.textContent=kec;
+    // console.log(cd);
+    // setText('#customer_reg_area_code',kec);    
+   });   
 $(function () {
     $("#jsGridOrderlink").jsGrid({
         height: "auto",
@@ -119,24 +174,23 @@ function showAddOrderLink() {
     //    var list = getComp('formbmalisttitle');
     //    console.log(list);
     hideComp('orderlinklist');
-    showComp('cardorderlinklist');
-    setText('btnSimpanOrderlink', 'Simpan');
-    setText('formorderlinklisttitle', 'Tambah Bumdesma');
-    resetForm('formorderlinklist');
+    showComp('cardregisterlist');
+    setText('btnSimpanregister', 'Simpan');
+    setText('formregisterlisttitle', 'Register');
+    resetForm('formregisterlist');
     $.ajax({
-        url: base_url + "/loadorderlinkadd",
+        url: base_url + "/loadregisteradd",
         //                    data: filter,
         dataType: "json",
         success: function (response) {
-            var ret = {
-                data: response.data,
-                itemsCount: response.totalCount
-            };
-            idpel = ret.data.idpel;
-            setValue('idpel', idpel);
+           
+            // idpel = ret.data.idpel;
+            setText('customer_reg_id', response.data.id);
+            setText('customer_reg_no_reg', response.data.no_reg);
 
         }
     });
+   
 
 
 }
@@ -171,10 +225,177 @@ function batalAddOrderlink() {
     showComp('orderlinklist');
 }
 ;
+function batalAddregister(){
+    hideComp('cardregisterlist');
+    showComp('orderlinklist');
+}
 
 function simpanAddOrderLink(id, text) {
     alert(text);
 }
 ;
+$("#customer_reg_kontak").on("input", function (e) {
+    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,15})/);
+    e.target.value = x[1];
+});
+$("#customer_reg_no_ktp").on("input", function (e) {
+    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,20})/);
+    e.target.value = x[1];
+});
+$("#customer_reg_rt_rw").on("input", function (e) {
+    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})/);
+    e.target.value = !x[2] ? x[1] : x[1] + '/' + x[2];
+});
+function getTextOrder(id){
+    var cmp=document.getElementById(id);
+    return cmp.textContent;
+}
+function simpanRegister(){
+    var vid = document.getElementById("#customer_reg_id");
+    var vno_reg = document.getElementById("#customer_reg_no_reg");
+    var varea_code = document.getElementById("#customer_reg_area_code");
+   
+    // var formData = {
+    //     id:vid.textContent,
+    //     no_reg:vno_reg.textContent,
+    //     nama:("#customer_reg_nama").val(),
+    //     no_ktp:("#customer_reg_no_ktp").val(),
+    //     kontak:("#customer_reg_kontak").val(),
+    //     kecamatan:("#customer_reg_kecamatan").val(),
+    //     desa:("#customer_reg_desa").val(),
+    //     dusun:("#customer_reg_dusun").val(),
+    //     rt_rw:("#customer_reg_rt_rw").val(),
+    //     paket:("#customer_reg_paket").val(),
+    //     area_code:varea_code.textContent,
+    //     cmd: $("#btnSimpanOdp").text() +"reg",
+    // };
+    // $.ajax({
+    //     // fixBug get url from global function only
+    //     // get global variable is bug!
+    //     url: base_url + "/setRegister",
+    //     type: 'post',
+    //     data: formData,
+    //     cache: false,
+    //     dataType: 'json',
+    //     //   beforeSend: function() {
+    //     //     $('#form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+    //     //   },
+    //     success: function (response) {
+    //         console.log(response);
+    //         if (response.success === true) {
+    //             // console.log(response.message);
 
+    //             Swal.fire({
+    //                 // position: "top-end",
+    //                 icon: "success",
+    //                 title: response.message,
+    //                 // showConfirmButton: false,
+    //                 // timer: 1500
+    //             }).then((result) => {
+    //                 batalAddregister(); 
+    //                 // $("#jsGridOdp").jsGrid("search", { query: '' }).done(function () {
+                        
+    //                 // });
+    //             });
+                
+
+    //         } else {
+    //             Swal.fire({
+    //                 toast: false,
+    //                 //   position: 'bottom-end',
+    //                 icon: 'error',
+    //                 title: response.message,
+    //                 //   showConfirmButton: false,
+    //                 timer: 3000
+    //             })
+
+    //         }
+    //         // $('#form-btn').html(getSubmitText());
+    //     }
+    // });
+}
+$("#formregisterlist").on("submit", function (event) {
+    var vid = document.getElementById("#customer_reg_id");
+    var vno_reg = document.getElementById("#customer_reg_no_reg");
+    var varea_code = document.getElementById("#customer_reg_area_code");
+   
+    var formData = {
+        id:vid.textContent,
+        no_reg:vno_reg.textContent,
+        nama:("#customer_reg_nama").val(),
+        no_ktp:("#customer_reg_no_ktp").val(),
+        kontak:("#customer_reg_kontak").val(),
+        kecamatan:("#customer_reg_kecamatan").val(),
+        desa:("#customer_reg_desa").val(),
+        dusun:("#customer_reg_dusun").val(),
+        rt_rw:("#customer_reg_rt_rw").val(),
+        paket:("#customer_reg_paket").val(),
+        area_code:varea_code.textContent,
+        cmd: $("#btnSimpanOdp").text() +"reg",
+    };
+    $.ajax({
+        // fixBug get url from global function only
+        // get global variable is bug!
+        url: base_url + "/setRegister",
+        type: 'post',
+        data: formData,
+        cache: false,
+        dataType: 'json',
+        //   beforeSend: function() {
+        //     $('#form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+        //   },
+        success: function (response) {
+            console.log(response);
+            if (response.success === true) {
+                // console.log(response.message);
+
+                Swal.fire({
+                    // position: "top-end",
+                    icon: "success",
+                    title: response.message,
+                    // showConfirmButton: false,
+                    // timer: 1500
+                }).then((result) => {
+                    batalAddregister(); 
+                    // $("#jsGridOdp").jsGrid("search", { query: '' }).done(function () {
+                        
+                    // });
+                });
+                
+
+            } else {
+                Swal.fire({
+                    toast: false,
+                    //   position: 'bottom-end',
+                    icon: 'error',
+                    title: response.message,
+                    //   showConfirmButton: false,
+                    timer: 3000
+                })
+
+            }
+            // $('#form-btn').html(getSubmitText());
+        }
+    });
+    // alert("Handler for `submit` called.");
+    event.preventDefault();
+});
+
+// var kontakreg = document.getElementById('customer_reg_kontak');
+// // var myForm = document.forms.formregisterlist;
+// // var result = document.getElementById('result');  // only for debugging purposes
+
+// phoneInput.addEventListener('input', function (e) {
+// //   var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+// //   e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+// var x = e.target.value.replace(/\D/g, '').match(/(\d{0,15})/);
+// e.target.value = x[1];
+// });
+
+// myForm.addEventListener('submit', function(e) {
+//   phoneInput.value = phoneInput.value.replace(/\D/g, '');
+//   result.innerText = phoneInput.value;  // only for debugging purposes
+  
+//   e.preventDefault(); // You wouldn't prevent it
+// });
 

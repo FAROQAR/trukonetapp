@@ -215,3 +215,9 @@ function deletePaket(data){
         }
     });
 };
+
+
+$("#tarif_paket").on("input", function (e) {
+    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,20})/);
+    e.target.value = x[1];
+});

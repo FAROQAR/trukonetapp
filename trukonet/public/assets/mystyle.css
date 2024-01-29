@@ -2,11 +2,17 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
 */
+
+
 /* 
     Created on : Apr 13, 2023, 1:49:12 AM
     Author     : nasywan
 */
+
+
 /*Penghalang*/
+
+
 /*.penghalang {
     display: none;
     position: fixed;
@@ -19,7 +25,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }*/
+
+
 /* The Modal (background) */
+
+
 /*.penghalang {
   display: none;  Hidden by default 
   position: fixed;  Stay in place 
@@ -35,19 +45,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
  Modal Content 
-*/.modal-contentku {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  border: 1px solid #888;
-  width: 50%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.4s;
-  animation-name: animatetop;
-  animation-duration: 0.4s
-}/*
+*/
+
+.modal-contentku {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+/*
 
  Add Animation 
 @-webkit-keyframes animatetop {
@@ -88,3 +103,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
   background-color: #5cb85c;
   color: white;
 }*/
+
+.col-sm-1e {
+    -ms-flex: 0 0 8.4%;
+    flex: 0 0 8.4%;
+    max-width: 8.4%;
+}

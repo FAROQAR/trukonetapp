@@ -3,111 +3,267 @@
 namespace App\Controllers\Pelanggan;
 
 use App\Controllers\BaseController;
+use App\Models\CustomerModel;
 use CodeIgniter\API\ResponseTrait;
 
 class OrderlinkController extends BaseController
 {
+    use ResponseTrait;
     public function index()
     {
         $client = new \Google_Client();
-$client->setApplicationName('Google Sheets Api');
-$client->setScopes([\Google\Service\Sheets::SPREADSHEETS]);
-$client->setAccessType('offline');
-$client->setAuthConfig('keyfile.json');
+        $client->setApplicationName('Google Sheets Api');
+        $client->setScopes([\Google\Service\Sheets::SPREADSHEETS]);
+        $client->setAccessType('offline');
+        $client->setAuthConfig('keyfile.json');
 
-$service = new \Google\Service\Sheets($client);
-$spreadsheetId = "1FEkB1KXgU-blyKstnq5vdEJxzv0xL32tLGE2g2yrXxk";
-$get_range = 'pasang baru!A2:M19';
-$response = $service->spreadsheets_values->get($spreadsheetId, $get_range);
+        $service = new \Google\Service\Sheets($client);
+        $spreadsheetId = "1FEkB1KXgU-blyKstnq5vdEJxzv0xL32tLGE2g2yrXxk";
+        $get_range = 'pasang baru!A2:M19';
+        $response = $service->spreadsheets_values->get($spreadsheetId, $get_range);
 
-$values = $response->getValues();
-$data=array();
-$arr=array();
-foreach($values as $v){
-   if(empty($v[11])){
-    $arr=array(
-        'no'=>$v[0],
-        'nama'=>$v[1],
-        'kontak'=>$v[2],
-        'desa'=>$v[3],
-        'dusun'=>$v[4],
-        'rtrw'=>$v[5],
-        'areacode'=>$v[6],
-        'paket'=>$v[7],
-        'idpel'=>$v[8],
-        'odp'=>$v[9],
-        'modemsn'=>empty($v[10])?'':$v[10]
-       );
-       array_push($data,$arr);
-   }
-   
-   
+        $values = $response->getValues();
+        $data = array();
+        $arr = array();
+        foreach ($values as $v) {
+            if (empty($v[11])) {
+                $arr = array(
+                    'no' => $v[0],
+                    'nama' => $v[1],
+                    'kontak' => $v[2],
+                    'desa' => $v[3],
+                    'dusun' => $v[4],
+                    'rtrw' => $v[5],
+                    'areacode' => $v[6],
+                    'paket' => $v[7],
+                    'idpel' => $v[8],
+                    'odp' => $v[9],
+                    'modemsn' => empty($v[10]) ? '' : $v[10]
+                );
+                array_push($data, $arr);
+            }
 
-}
+
+
+        }
         $result['success'] = true;
         $result['data'] = $data;
 
         return $this->respond($result, 200);
     }
-    public function getRows() {
+    public function getRows()
+    {
         $limit = isset($_GET['pageSize']) ? $this->request->getGet('pageSize') : 10;
         $pageIndex = isset($_GET['pageIndex']) ? $this->request->getGet('pageIndex') : 0;
         $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
-        $offset = ($pageIndex-1)*$limit;
-      
-//        startIndex = (filter.pageIndex - 1) * filter.pageSize
-$client = new \Google_Client();
-$client->setApplicationName('Google Sheets Api');
-$client->setScopes([\Google\Service\Sheets::SPREADSHEETS]);
-$client->setAccessType('offline');
-$client->setAuthConfig('keyfile.json');
+        $offset = ($pageIndex - 1) * $limit;
 
-$service = new \Google\Service\Sheets($client);
-$spreadsheetId = "1FEkB1KXgU-blyKstnq5vdEJxzv0xL32tLGE2g2yrXxk";
-$get_range = 'pasang baru';
-$response = $service->spreadsheets_values->get($spreadsheetId, $get_range);
+        //        startIndex = (filter.pageIndex - 1) * filter.pageSize
+        $client = new \Google_Client();
+        $client->setApplicationName('Google Sheets Api');
+        $client->setScopes([\Google\Service\Sheets::SPREADSHEETS]);
+        $client->setAccessType('offline');
+        $client->setAuthConfig('keyfile.json');
 
-$values = $response->getValues();
-$data=array();
-$arr=array();
-$i=0;
-foreach($values as $v){
-    if (empty($v[0])){
-        break;
-    }
-    
-    
-   if(empty($v[11])){
-    $arr=array(
-        'no'=>$v[0],
-        'nama'=>$v[1],
-        'kontak'=>$v[2],
-        'desa'=>$v[3],
-        'dusun'=>$v[4],
-        'rtrw'=>$v[5],
-        'areacode'=>$v[6],
-        'paket'=>$v[7],
-        'idpel'=>$v[8],
-        'odp'=>$v[9],
-        'modemsn'=>empty($v[10])?'':$v[10],
-        'counter'=>($i+1)
-       );
-       if ($i>=$offset  && $i<($limit*$pageIndex)){
-            array_push($data,$arr);
+        $service = new \Google\Service\Sheets($client);
+        $spreadsheetId = "1FEkB1KXgU-blyKstnq5vdEJxzv0xL32tLGE2g2yrXxk";
+        $get_range = 'pasang baru';
+        $response = $service->spreadsheets_values->get($spreadsheetId, $get_range);
+
+        $values = $response->getValues();
+        $data = array();
+        $arr = array();
+        $i = 0;
+        foreach ($values as $v) {
+            if (empty($v[0])) {
+                break;
+            }
+
+
+            if (empty($v[11])) {
+                $arr = array(
+                    'no' => $v[0],
+                    'nama' => $v[1],
+                    'kontak' => $v[2],
+                    'desa' => $v[3],
+                    'dusun' => $v[4],
+                    'rtrw' => $v[5],
+                    'areacode' => $v[6],
+                    'paket' => $v[7],
+                    'idpel' => $v[8],
+                    'odp' => $v[9],
+                    'modemsn' => empty($v[10]) ? '' : $v[10],
+                    'counter' => ($i + 1)
+                );
+                if ($i >= $offset && $i < ($limit * $pageIndex)) {
+                    array_push($data, $arr);
+                }
+
+                $i++;
+            }
+
+
+
+
         }
-       
-       $i++;
-   }
-
-   
-   
-
-}
-$result['success'] = true;
+        $result['success'] = true;
         $result['data'] = $data;
-        $result["totalCount"]= $i;
-        $result["offset"]=$offset;
-        $result["limit"]=$limit;
-echo json_encode($result);
+        $result["totalCount"] = $i;
+        $result["offset"] = $offset;
+        $result["limit"] = $limit;
+        echo json_encode($result);
+    }
+
+    public function getRegisterLoad()
+    {
+        $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
+
+        $model = new CustomerModel();
+        $result = $model->getInsertIDReg();
+        $results['success'] = false;
+        if ($result['totalCount'] > 0) {
+            $results['success'] = true;
+            $results['data'] = array('id' => $result['id'], 'no_reg' => $result['no_reg']);
+        } else {
+            $results['success'] = false;
+            $results['message'] = 'ID No.Reg NotFound!';
+        }
+        return $this->response->setJSON($results);
+    }
+
+    public function getPaketCombo()
+    {
+
+        $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
+
+        $where = '';
+        if (strlen($search) > 0) {
+            $where = "(nama_paket like'%$search%')";
+        }
+        $model = new CustomerModel();
+        $result = $model->getPaketCombo($where);
+        $output = '<option value="">--Pilih Paket--</option>';
+        $results['success'] = false;
+        // echo json_encode($result) ;
+        if ($result['totalCount'] > 0) {
+            $results['success'] = true;
+            foreach ($result['data'] as $row) {
+                $output .= '<option value="' . $row['idpaket'] . '">' . $row['nama_paket'] . '</option>';
+
+            }
+            $results['data'] = $output;
+            // while($row = $result['data']){
+            //     echo json_encode($row) ;
+            //    // $output .= '<option value="'.$row['id_server'].'">'.$row["lokasi"].'</option>';
+            // }
+            // $results['data']= $output;
+        }
+
+        return $this->response->setJSON($results);
+    }
+
+    public function getKecamatanCombo()
+    {
+
+        $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
+
+        $where = '';
+        if (strlen($search) > 0) {
+            $where = "(rkc_nama like'%$search%')";
+        }
+        $model = new CustomerModel();
+        $result = $model->getKecamatanCombo($where);
+        $output = '<option value="">--Pilih Kecamatan--</option>';
+        $results['success'] = false;
+        // echo json_encode($result) ;
+        if ($result['totalCount'] > 0) {
+            $results['success'] = true;
+            foreach ($result['data'] as $row) {
+                $output .= '<option value="' . $row['rkc_nama'] . '">' . $row['rkc_nama'] . '</option>';
+
+            }
+            $results['data'] = $output;
+        }
+
+        return $this->response->setJSON($results);
+    }
+    public function getDesaCombo()
+    {
+
+        $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
+
+        $where = '';
+        if (strlen($search) > 0) {
+            $where = "(rkc_nama ='$search')";
+        }
+        $model = new CustomerModel();
+        $result = $model->getDesaCombo($where);
+        $output = '<option value="">--Pilih Desa--</option>';
+        $results['success'] = false;
+        // echo json_encode($result) ;
+        if ($result['totalCount'] > 0) {
+            $results['success'] = true;
+            foreach ($result['data'] as $row) {
+                $output .= '<option value="' . $row['rkl_nama'] . '">' . $row['rkl_nama'] . '</option>';
+
+            }
+            $results['data'] = $output;
+        }
+
+        return $this->response->setJSON($results);
+    }
+
+    public function getDusunCombo()
+    {
+
+        $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
+
+        $where = '';
+        if (strlen($search) > 0) {
+            $where = "(desa ='$search')";
+        }
+        $model = new CustomerModel();
+        $result = $model->getDusunCombo($where);
+        $output = '<option value="">--Pilih Dusun--</option>';
+        $results['success'] = false;
+        // echo json_encode($result) ;
+        if ($result['totalCount'] > 0) {
+            $results['success'] = true;
+            foreach ($result['data'] as $row) {
+                $output .= '<option value="' . $row['iddusun'] . '">' . $row['nama'] . '</option>';
+
+            }
+            $results['data'] = $output;
+        }
+
+        return $this->response->setJSON($results);
+    }
+
+    public function updateRegister()
+    {
+        $data = $this->request->getGetPost();
+        $cmd = strtolower($data['cmd']);
+        if ($cmd == 'simpanreg') {
+            $postdata = $data;
+            unset($postdata["cmd"]);
+            $model = new CustomerModel();
+            $postdata["no_reg"] = $model->getsetMasterCode(true, 'customer_reg', 'R', true, 4);
+            $postdata["status"] = 'reg';
+            $postdata["tgl_reg"] = date('y-m-d');
+
+            $retval = $model->insertBuild('customer_reg', $postdata);
+            if ($retval > 0) {
+                $results['success'] = true;
+                // $results['message'] = $data['cmd'];
+                $results['message'] = 'Execute successfully';
+            } else {
+                $results['success'] = false;
+                $results['message'] = 'Execute Aborted!';
+            }
+            // $results['success'] = true;
+            // $results['message'] = 'Execute successfully';
+
+            return $this->response->setJSON($results);
+        }
     }
 }

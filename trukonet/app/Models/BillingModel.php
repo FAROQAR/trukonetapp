@@ -70,17 +70,6 @@ class BillingModel extends MBaseModel
 
     
 
-    public function updateAnggSpp($data, $strwhere = "", $arrwhere)
-    {
-        $sql = "select * from kelompok_anggspp " . $strwhere;
-        $result = $this->selectQuery($sql);
-        $retval = '';
-        if ($result->getNumRows() > 0) {
-            $retval = $this->updateBuild('kelompok_anggspp', $data, $arrwhere);
-        } else {
-            $retval = $this->insertBuild('kelompok_anggspp', $data);
-        }
-        return $retval;
-    }
+    
 
 }

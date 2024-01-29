@@ -102,8 +102,20 @@ $routes->get('loadbmaadd', 'Masterlist\Bumdesmalist::index');
 
 $routes->get('loadPaket', 'Masterlist\Paket::getRows');
 
+
 $routes->get('loadOrderlink', 'Pelanggan\OrderlinkController::getRows');
 $routes->get('loadCustomer', 'Pelanggan\CustomerController::getRows');
+
+$routes->get('loadregisteradd', 'Pelanggan\OrderlinkController::getRegisterLoad');
+$routes->get('loadpaketcombo', 'Pelanggan\OrderlinkController::getPaketCombo');
+$routes->get('loadakecamatancombo', 'Pelanggan\OrderlinkController::getKecamatanCombo');
+$routes->get('loadadesacombo', 'Pelanggan\OrderlinkController::getDesaCombo');
+$routes->get('loadadusuncombo', 'Pelanggan\OrderlinkController::getDusunCombo');
+
+$routes->post('setRegister', 'Pelanggan\OrderlinkController::updateRegister');
+
+
+
 
 $routes->get('loadBillpending', 'Billing\Billpending::getRows');
 $routes->post('billpayment', 'Billing\Billpending::setPayment');

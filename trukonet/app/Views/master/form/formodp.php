@@ -6,7 +6,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form id="formodplist" class="form-horizontal" method="POST">
+    <form id="formodplist" class="form-horizontal" >
         <div class="card-body">
             <div class="form-group row">
                 <label for="idodp_odp" class="col-sm-1 col-form-label">ID ODP</label>
@@ -65,7 +65,7 @@
         <div class="card-footer">
             <button type="button" class="btn btn-danger" onclick="batalAddOdp()">Batal</button>
             <!-- <button id="btnSimpanServer" type="submit" class="btn btn-primary" onclick="simpanAddOdp(this.id, this.textContent)">Simpan</button> -->
-            <button id="btnSimpanOdp" type="submit" class="btn btn-primary">Simpan</button>
+            <button id="btnSimpanOdp" class="btn btn-primary" onclick="simpanRegister()">Simpan</button>
         </div>
     </form>
 </div>
