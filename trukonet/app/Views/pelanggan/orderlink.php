@@ -2,19 +2,23 @@
 <?= $this->section('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">   
+<div class="content-wrapper">
     <!-- Main content -->
     <section class="content" style="padding-top:10px;">
-          <?= view('pelanggan/form/formorderlink'); ?>
-          <?= view('pelanggan/form/formpasang'); ?>
+        <?= view('pelanggan/form/formorderlink'); ?>
+        <?= view('pelanggan/form/formpasang'); ?>
+        <?= view('pelanggan/form/formeditorder'); ?>
         <div id="orderlinklist" class="card">
             <div class="card-header">
-                <h3 class="card-title"><?= $title ?></h3>
+                <h3 class="card-title">
+                    <?= $title ?>
+                </h3>
                 <div class="card-tools">
 
                     <div class="input-group input-group-sm" style="width: 250px;">
-                        <div type="button" class="btn btn-success btn-sm" style="margin-right: 3px;" onclick="showAddOrderLink()">
-                            <i class="fa fa-plus" ></i>
+                        <div type="button" class="btn btn-success btn-sm" style="margin-right: 3px;"
+                            onclick="showAddOrderLink()">
+                            <i class="fa fa-plus"></i>
                         </div>
                         <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
@@ -42,15 +46,16 @@
 <div id="orderlinkdetail-modal" class="modal">
 
     <!-- Modal content -->
-    <div  class="modal-content" style="width:400px;position: relative;margin: auto;">
+    <div class="modal-content" style="width:400px;position: relative;margin: auto;">
 
         <div class="card card-warning" style="width:100%;height: 100%;position: relative;margin: auto;">
             <div class="card-header">
                 <h3 id="orderlinkdetail-modal-title" class="card-title">Removable</h3>
 
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" >
-                        <i class="fas fa-times" onclick="document.getElementById('orderlinkdetail-modal').style.display = 'none'"></i>
+                    <button type="button" class="btn btn-tool">
+                        <i class="fas fa-times"
+                            onclick="document.getElementById('orderlinkdetail-modal').style.display = 'none'"></i>
                     </button>
                 </div>
                 <!-- /.card-tools -->
@@ -72,7 +77,8 @@
               <p>Some text in the Modal Body</p>
               <p>Some other text...</p>
             </div>
-        -->    <div class="modal-footer">
+        -->
+        <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
         </div>
     </div>

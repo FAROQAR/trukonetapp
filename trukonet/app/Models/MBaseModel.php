@@ -151,8 +151,8 @@ class MBaseModel extends Model {
 //        $results = '{success:true,record:' . $total . ',data:' . json_encode($rows) . '}';
         $results = array('success' => true, 'record' => $total, 'data' => $rows);
 
-        $query->next_result();
-        $query->free_result();
+        // $query->nextResult();
+        $query->freeResult();
         return $results;
     }
 
@@ -170,9 +170,16 @@ class MBaseModel extends Model {
             $sql = "call $spname()";
             $query = $this->db->query($sql);
         }
+        if ($query->getNumRows() > 0) {
+            $rows = $query->getResult();
+            $total = $query->getNumRows();
+        }
 
-        $query->next_result();
-        $query->free_result();
+//        $results = '{success:true,record:' . $total . ',data:' . json_encode($rows) . '}';
+        $results = array('success' => true, 'record' => $total, 'data' => $rows);
+        // $query->next_result();
+        $query->freeResult();
+        return  $results;
     }
 
 }

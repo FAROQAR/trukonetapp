@@ -117,7 +117,9 @@ $routes->post('setRegister', 'Pelanggan\OrderlinkController::updateRegister');
 $routes->get('genPassword', 'Pelanggan\OrderlinkController::generateRandomPassword');
 $routes->get('loadpasang', 'Pelanggan\OrderlinkController::getPasangLoad');
 $routes->post('setPasang', 'Pelanggan\OrderlinkController::updatePasang');
-
+$routes->post('setOrderlink', 'Pelanggan\OrderlinkController::updateRows');
+$routes->get('printlabel', 'Pelanggan\OrderlinkController::printlabel');
+// $routes->get('sessionuser', 'Pelanggan\OrderlinkController::getsessionnama');
 
 $routes->get('loadBillpending', 'Billing\Billpending::getRows');
 $routes->post('billpayment', 'Billing\Billpending::setPayment');
@@ -126,6 +128,8 @@ $routes->get('billno', 'Billing\Billpending::setCode');
 $routes->get('loadBillclose', 'Billing\Billclose::getRows');
 
 $routes->get('printreceipt', 'Billing::printreceipt');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

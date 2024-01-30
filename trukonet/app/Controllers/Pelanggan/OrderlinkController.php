@@ -127,9 +127,9 @@ class OrderlinkController extends BaseController
         // }
 
         //        startIndex = (filter.pageIndex - 1) * filter.pageSize
-        $where = '';
+        $where = "status !='on'";
         if (strlen($search) > 0) {
-            $where = "(no_reg like'%$search%' or id_pelanggan like'%$search%' or nama like'%$search%' or no_ktp like'%$search%')";
+            $where .= " and (no_reg like'%$search%' or id_pelanggan like'%$search%' or nama like'%$search%' or no_ktp like'%$search%')";
         }
 
         $model = new CustomerModel();
@@ -269,6 +269,7 @@ class OrderlinkController extends BaseController
     {
         $data = $this->request->getGetPost();
         $cmd = strtolower($data['cmd']);
+        $retval=0;
         if ($cmd == 'simpanreg') {
             $postdata = $data;
             unset($postdata["cmd"]);
@@ -278,19 +279,22 @@ class OrderlinkController extends BaseController
             $postdata["tgl_reg"] = date('y-m-d');
 
             $retval = $model->insertBuild('customer_reg', $postdata);
-            if ($retval > 0) {
-                $results['success'] = true;
-                // $results['message'] = $data['cmd'];
-                $results['message'] = 'Execute successfully';
-            } else {
-                $results['success'] = false;
-                $results['message'] = 'Execute Aborted!';
-            }
-            // $results['success'] = true;
-            // $results['message'] = 'Execute successfully';
-
-            return $this->response->setJSON($results);
+            
         }
+        
+
+        if ($retval > 0) {
+            $results['success'] = true;
+            // $results['message'] = $data['cmd'];
+            $results['message'] = 'Execute successfully';
+        } else {
+            $results['success'] = false;
+            $results['message'] = 'Execute Aborted!';
+        }
+        // $results['success'] = true;
+        // $results['message'] = 'Execute successfully';
+
+        return $this->response->setJSON($results);
     }
 
     public function generateRandomPassword()
@@ -394,4 +398,74 @@ class OrderlinkController extends BaseController
             return $this->response->setJSON($results);
         }
     }
+
+    public function updateRows()
+    {
+        $data = $this->request->getGetPost();
+        $cmd = strtolower($data['cmd']);
+        $retval =0;
+        if ($cmd == 'simpanorder') {
+            $postdata = $data;
+            unset($postdata["cmd"]);
+            unset($postdata["id"]);
+            unset($postdata["no_reg"]);
+                        
+            $postwhere["no_reg"]=$data['no_reg'];
+            $postwhere["id"]=$data['id'];            
+            
+            $model = new CustomerModel();          
+            $retval = $model->updateBuild('customer_reg', $postdata,$postwhere);
+            
+        }
+        if($cmd == 'delete'){
+            $postdata=$data;
+            unset($postdata["cmd"]);
+            $model = new CustomerModel();
+            $retval=$model->deleteBuild('customer_reg',$postdata);
+        }
+        if($cmd == 'activate'){
+            $user=session()->get('username');
+            $model = new CustomerModel();
+            $result=$model->SP_execData('sp_activate_reg',array($data["no_reg"],$user));
+            if($result['success']){
+                $retval=1;
+            }
+        }
+
+        if ($retval > 0) {
+            $results['success'] = true;              
+            $results['message'] = 'Execute successfully';
+        } else {
+            $results['success'] = false;
+            $results['message'] = 'Execute Aborted!';
+        }            
+
+        return $this->response->setJSON($results);
+    }
+    public function getsessionnama(){
+        return session()->get('username');
+    }
+    public function printlabel(){
+        $data=json_decode($this->request->getGet('data'));
+        // if(is_array($data)){
+        //     echo $data['nama'];
+        // }else{
+        //     // echo 'bukan array';
+        //     // echo json_encode(array("nama"=>"aaa", 'no'=>1));
+        //     $aa=(string)$data;
+        //     echo $aa;
+        //     echo ( json_decode( $aa , true ) == NULL ) ? 'false' : 'true' ; 
+        // }
+         
+        
+        // $arr=  explode(",", $data); 
+        // $profile = $data;
+        // $profile = $data;
+        // $this->load->view('nota_generic', ['profile' => $profile]);
+        //return view('nota_generic', ['profile' => $profile]);
+        // return view('welcome_message');
+        return view('labelmodem', ['profile' => $data]);
+        
+    }
+    
 }

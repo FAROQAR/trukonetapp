@@ -60,7 +60,7 @@ class Billing extends BaseController {
     }
     public function printreceipt()
     {
-        $data=json_decode($this->request->getGet('data'));
+        $data=json_decode( $this->request->getGet('data') );
         // echo $data->nama;
         
         // $arr=  explode(",", $data); 
