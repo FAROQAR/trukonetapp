@@ -5,10 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="<?= base_url(); ?>/assets/printstyle.css">
-        <title>Cetak Label</title>
+        
+        <title class="hidden-print">Cetak Label</title>
     </head>
+    
     <body>
-        <div class="ticket">
+        <div class="ticket" >
             <!-- <img src="./logo.png" alt="Logo">
             <p class="centered">RECEIPT EXAMPLE
                 <br>Address line 1
@@ -62,7 +64,9 @@
             </table>
            
         </div>
-        <button id="btnPrint" class="hidden-print button" style="margin-top: 10px;">Print</button>
+        
+        <button id="btnPrint" class="hidden-print button" style="margin-top: 10px;">Print</button><br>
+        <label id="adduser" class="hidden-print" style="margin-top: 10px;"><?= $genadd; ?></label>
         <script src="<?= base_url(); ?>/assets/js/print.js"></script>
     </body>
 </html>

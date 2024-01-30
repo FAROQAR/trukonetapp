@@ -30,6 +30,13 @@
                 </div>
 
             </div>
+            <div class="form-group row">
+                <label for="profile_paket" class="col-sm-1 col-form-label">PROFILE</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="profile_paket" name="profile" placeholder="profile paket">
+                </div>
+
+            </div>
 
             
         </div>

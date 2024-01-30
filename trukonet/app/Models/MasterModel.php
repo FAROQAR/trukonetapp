@@ -297,7 +297,7 @@ FROM master_odp";
     //paket
     public function getPaketPaging($limit, $offset, $strwhere = "")
     {
-        $sql = "SELECT  idpaket, nama_paket, tarif 
+        $sql = "SELECT  idpaket, nama_paket, tarif, `profile`
         FROM master_paket";
         if (strlen($strwhere) > 0) {
             $sql .= " where $strwhere";

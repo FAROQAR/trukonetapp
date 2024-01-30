@@ -464,7 +464,11 @@ class OrderlinkController extends BaseController
         // $this->load->view('nota_generic', ['profile' => $profile]);
         //return view('nota_generic', ['profile' => $profile]);
         // return view('welcome_message');
-        return view('labelmodem', ['profile' => $data]);
+        // add name=172001021081 password=truko123 service=pppoe profile=Broadband_5mb_193 comment=ODP_2
+        $model = new CustomerModel();
+        $paket=$model->callFunction('getPaketNamaProfile',array('profile',$data->paket));
+        $genadd="add name=$data->id_pelanggan password=truko123 service=pppoe profile=\"$paket\" comment=ODP $data->odp";
+        return view('labelmodem', ['profile' => $data,'genadd'=>$genadd]);
         
     }
     

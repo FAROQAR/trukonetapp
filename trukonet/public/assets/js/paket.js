@@ -91,6 +91,7 @@ $(function () {
             { title: 'IDPAKET', name: 'idpaket', soritng: false, width: 20 },
             { title: 'NAMA_PAKET', name: 'nama_paket', soritng: false, width: 50 },
             { title: 'TARIF', name: 'tarif', soritng: false, width: 30 },
+            { title: 'PROFILE', name: 'profile', soritng: false, width: 80 },
 
 
         ]
@@ -116,6 +117,7 @@ $("#formpaketlist").on("submit", function (event) {
         idpaket: $("#idpaket_paket").text(),
         nama_paket: $("#nama_paket_paket").val(),
         tarif: $("#tarif_paket").val(),
+        profile: $("#profile_paket").val(),
         cmd: $("#btnSimpanPaket").text(),
     };
     // console.log("nang kene");
@@ -170,6 +172,7 @@ function showEditPaket(data) {
     setText('idpaket_paket',data.idpaket);
     setValue('nama_paket_paket',data.nama_paket);
     setValue('tarif_paket',data.tarif);    
+    setValue('profile_paket',data.profile);  
 };
 
 function deletePaket(data){
