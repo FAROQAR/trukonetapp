@@ -120,6 +120,7 @@ $routes->post('setPasang', 'Pelanggan\OrderlinkController::updatePasang');
 $routes->post('setOrderlink', 'Pelanggan\OrderlinkController::updateRows');
 $routes->get('printlabel', 'Pelanggan\OrderlinkController::printlabel');
 // $routes->get('sessionuser', 'Pelanggan\OrderlinkController::getsessionnama');
+$routes->post('setCustomer', 'Pelanggan\CustomerController::updateRows');
 
 $routes->get('loadBillpending', 'Billing\Billpending::getRows');
 $routes->post('billpayment', 'Billing\Billpending::setPayment');

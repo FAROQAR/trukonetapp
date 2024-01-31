@@ -163,5 +163,28 @@ class CustomerModel extends MBaseModel
 
     }
 
+    public function getCustomerPaging($limit, $offset, $strwhere = "", $sortField = "id", $sortOrder = "asc")
+    {
+        $sql = "SELECT id, id_pelanggan, nama, no_ktp, kontak, kecamatan, desa, dusun, rt_rw, paket, area_code, odp, modem_sn, wifi_id, wifi_pass, status, mutasi, no_reg, tgl_reg, tgl_pasang, tgl_on, create_date, create_by, update_date, update_by 
+        FROM customer";
+        if (strlen($strwhere) > 0) {
+            $sql .= " where $strwhere";
+        }
+        if ((strlen($sortField) > 0) && (strlen($sortOrder) > 0)) {
+            $sql .= " order by $sortField $sortOrder";
+            // $sql .= " order by id asc";
+        }
+        $result = $this->db->query($sql . " limit $offset,$limit");
+        $response['data'] = $result->getResultArray();
+        $result->freeResult();
+
+        $result = $this->db->query($sql);
+        $response["totalCount"] = $result->getNumRows();
+
+        $result->freeResult();
+        return $response;
+
+    }
+
 
 }
