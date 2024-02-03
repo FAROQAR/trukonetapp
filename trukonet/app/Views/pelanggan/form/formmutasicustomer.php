@@ -28,6 +28,18 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group row">                
+                <label for="customer_mutasi_tanggal" class="col-sm-1 col-form-label">Tanggal</label>
+                <div class="col-sm-3">
+                    <!-- <input type="text" class="form-control datetimepicker-input" id="customer_mutasi_tanggal" name="tanggal" placeholder="tanggal" required> -->
+                    <div class="input-group date"  data-target-input="nearest">
+                        <input type="text" id="customer_mutasi_tanggal" class="form-control datetimepicker-input" data-target="#customer_mutasi_tanggal"/>
+                        <div class="input-group-append" data-target="#customer_mutasi_tanggal" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
         </div>
         <!-- /.card-body -->

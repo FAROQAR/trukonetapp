@@ -117,7 +117,7 @@ class CustomerController extends BaseController
                 'sp_mutasi_paket',
                 array($data["id_pelanggan"],
                 $data["paket"],
-                date('y-m-d'),
+                $data["tgl_mutasi"],
                 $user));
             if($result['success']){
                 $retval=1;

@@ -45,6 +45,10 @@ function getSelectorOptionText(id){
     
     return retval;
 }
+function getDate(id){
+    var retval = $('#'+id).val();
+    return retval;
+}
 function setValue(id,invalue){
     document.getElementById(id).value=invalue;
     

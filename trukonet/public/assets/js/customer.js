@@ -357,9 +357,12 @@ function simpanmutasicustomer() {
     var formData = {
         id: getSelectorText("customer_mutasi_id"),
         id_pelanggan: getSelectorText("customer_mutasi_id_pelanggan"),        
-        paket: getSelectorValue("customer_mutasi_paket"),       
+        paket: getSelectorValue("customer_mutasi_paket"),  
+        tgl_mutasi:getDate("customer_mutasi_tanggal"),      
         cmd: "mutasi",
     };
+        // console.log(getDate("customer_mutasi_tanggal"));
+        // return;
     $.ajax({
         // fixBug get url from global function only
         // get global variable is bug!
@@ -405,3 +408,8 @@ function batalAddmutasicustomer() {
     showComp('customerlist');
 }
 ;
+
+//Date picker
+$('#customer_mutasi_tanggal').datetimepicker({
+    format: 'YYYY-MM-DD'
+});
