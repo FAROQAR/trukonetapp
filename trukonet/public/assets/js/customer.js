@@ -44,7 +44,7 @@ $(function () {
                     var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
                     var $iconPencil = $("<i>").attr({ class: "fa fa-pencil-alt" });
                     var $iconMutasi = $("<i>").attr({ class: "fa fa-box" });
-                    
+                    var $iconOnOff = $("<i>").attr({ class: "fa fa-power-off" });
 
                     var $customEditButton = $("<button>")
                         .attr({ class: "btn btn-primary btn-xs", style: "margin-right: 3px;" })
@@ -68,11 +68,24 @@ $(function () {
                             // document.location.href = item.id + "/delete";
                             e.stopPropagation();
                         })
-                        .append($iconMutasi);                    
+                        .append($iconMutasi);  
+                    var $customOnOffButton = $("<button>")
+                        .attr({ class: "btn btn-danger btn-xs", style: "margin-right: 3px;" })
+                        .attr({ role: "button" })
+                        .attr({ title: 'On Off User' })
+                        .attr({ id: "btn-onoff-cust-" + item.id })
+                        .click(function (e) {
+                            //                                alert("Edit: " + item.kode_bma);
+                            // showEditCustomer(item);
+                            // document.location.href = item.id + "/edit";
+                            e.stopPropagation();
+                        })
+                        .append($iconOnOff);                  
                     return $("<div>")
                         // .append($customSwitchButton)
                         .append($customEditButton)
                          .append($customMutasiButton)
+                         .append($customOnOffButton);   
                         ;
 
                 }
