@@ -389,6 +389,21 @@ $(function () {
         });
     }
 });
+$(document).ready(function () {
+    $("#searchorderlink").on("keyup", function () {
+        var ret = $(this).val().toLowerCase();
+        $("#jsGridOrderlink").jsGrid("search", { query: ret }).done(function () {
+            // console.log("filtering completed ");
+        });
+    });
+});
+function cariOrderlink() {
+    var ret = $("#searchorderlink").val();
+
+    $("#jsGridOrderlink").jsGrid("search", { query: ret }).done(function () {
+        // console.log("filtering completed ");
+    });
+}
 
 function showAddOrderLink() {
     //    var list = getComp('formbmalisttitle');

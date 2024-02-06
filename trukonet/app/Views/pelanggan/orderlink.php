@@ -20,9 +20,9 @@
                             onclick="showAddOrderLink()">
                             <i class="fa fa-plus"></i>
                         </div>
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <input type="text" name="table_search" id="searchorderlink" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
+                            <button class="btn btn-default" onClick="cariOrderlink()">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>

@@ -182,4 +182,19 @@ class MBaseModel extends Model {
         return  $results;
     }
 
+    function myCrypt($value) {
+        $key = "01234567890123456789012345678901"; // 32 bytes
+        $iv = "1234567890123412"; // 16 bytes
+        $encrypted_data = openssl_encrypt($value, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+        return base64_encode($encrypted_data);
+    }
+
+    function myDecrypt($value) {
+        $key = "01234567890123456789012345678901"; // 32 bytes
+        $iv = "1234567890123412"; // 16 bytes
+        $mvalue = base64_decode($value);
+        $data = openssl_decrypt($mvalue, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+        return $data;
+    }
+
 }

@@ -79,3 +79,19 @@ function formatRupiah(angka, prefix) {
     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
+
+function myEncrypt(msg) {
+    var DataKey = CryptoJS.enc.Utf8.parse("01234567890123456789012345678901");
+    var DataVector = CryptoJS.enc.Utf8.parse("1234567890123412");
+    var ciphertext = CryptoJS.AES.encrypt(msg, DataKey, { iv: DataVector } ).toString();
+    // console.log(ciphertext);
+    return ciphertext;
+}
+function myDecrypt(ciphertext) {
+    var DataKey = CryptoJS.enc.Utf8.parse("01234567890123456789012345678901");
+    var DataVector = CryptoJS.enc.Utf8.parse("1234567890123412");
+    var bytes = CryptoJS.AES.decrypt(ciphertext, DataKey, { iv: DataVector } );
+    var originalText = bytes.toString(CryptoJS.enc.Utf8);
+    // console.log(originalText);
+    return originalText;
+}

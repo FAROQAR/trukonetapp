@@ -136,6 +136,23 @@ $(function () {
 
 });
 
+$(document).ready(function () {
+    $("#searchcustomer").on("keyup", function () {
+        var ret = $(this).val().toLowerCase();
+        $("#jsGridcustomer").jsGrid("search", { query: ret }).done(function () {
+            // console.log("filtering completed ");
+        });
+    });
+});
+function cariOrderlink() {
+    var ret = $("#searchcustomer").val();
+
+    $("#jsGridcustomer").jsGrid("search", { query: ret }).done(function () {
+        // console.log("filtering completed ");
+    });
+}
+
+
 // $('#tglpembentukan').datetimepicker({ format: 'DD-MM-YYYY' });
 // $("#jsGridCustomer").
 function showAddCustomer() {

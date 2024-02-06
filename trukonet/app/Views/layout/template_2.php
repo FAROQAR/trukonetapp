@@ -315,6 +315,7 @@
     <script src="<?= base_url(); ?>/dist/js/pages/dashboard.js"></script>
     <script src="<?= base_url(); ?>/plugins/jsgrid/demos/db.js"></script>
     <script src="<?= base_url(); ?>/plugins/jsgrid/jsgrid.min.js"></script>
+    <script src="<?= base_url(); ?>/assets/js/crypto-js.js"></script>
     <script src="<?= base_url(); ?>/assets/js/util.js"></script>
     <script src="<?= base_url(); ?>/assets/js/bumdesmalist.js"></script>
     <script src="<?= base_url(); ?>/assets/js/paket.js"></script>
