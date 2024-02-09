@@ -21,8 +21,9 @@
                         </div>
                         <input type="text" name="table_search" id="searchcustomer" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
-                            <button class="btn btn-default">
-                                <i class="fas fa-search"></i>
+                            <button type="button" class="btn btn-default" id="btnsearchcustomer" onclick="cariCustomerClick()">
+                                <i class="fas fa-times"></i>
+                                
                             </button>
                         </div>
                     </div>

@@ -45,6 +45,7 @@ $(function () {
                     var $iconPencil = $("<i>").attr({ class: "fa fa-pencil-alt" });
                     var $iconMutasi = $("<i>").attr({ class: "fa fa-box" });
                     var $iconOnOff = $("<i>").attr({ class: "fa fa-power-off" });
+                    // var $iconOn = $("<i>").attr({ class: "fa fa-power-on" });
 
                     var $customEditButton = $("<button>")
                         .attr({ class: "btn btn-primary btn-xs", style: "margin-right: 3px;" })
@@ -59,7 +60,7 @@ $(function () {
                         })
                         .append($iconPencil);
                     var $customMutasiButton = $("<button>")
-                        .attr({ class: "btn btn-success btn-xs", style: "margin-right: 3px;" })
+                        .attr({ class: "btn btn-warning btn-xs", style: "margin-right: 3px;" })
                         .attr({ role: "button" })
                         .attr({ title: "Edit Paket" })
                         .attr({ id: "btn-mutasi-cust-" + item.id })
@@ -68,19 +69,56 @@ $(function () {
                             // document.location.href = item.id + "/delete";
                             e.stopPropagation();
                         })
-                        .append($iconMutasi);  
-                    var $customOnOffButton = $("<button>")
-                        .attr({ class: "btn btn-danger btn-xs", style: "margin-right: 3px;" })
-                        .attr({ role: "button" })
-                        .attr({ title: 'On Off User' })
-                        .attr({ id: "btn-onoff-cust-" + item.id })
-                        .click(function (e) {
-                            //                                alert("Edit: " + item.kode_bma);
-                            // showEditCustomer(item);
-                            // document.location.href = item.id + "/edit";
-                            e.stopPropagation();
-                        })
-                        .append($iconOnOff);                  
+                        .append($iconMutasi);
+                        var $customOnOffButton;
+                        if(item.status == 'on'){
+                            $customOnOffButton = $("<button>")
+                            .attr({ class: "btn btn-danger btn-xs", style: "margin-right: 3px;" })
+                            .attr({ role: "button" })
+                            .attr({ title: 'NonAktifkan User' })
+                            .attr({ id: "btn-onoff-cust-" + item.id })
+                            .click(function (e) {
+                                Swal.fire({
+                                    title: "Apakah pelanggan akan dinonaktifkan ?",
+                                    showDenyButton: false,
+                                    showCancelButton: true,
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Non Aktifkan!"
+                                }).then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                        //Swal.fire("Deleted!", "", "success"); 
+                                        setOnOffCust('off',item.id_pelanggan,item.nama,item.paket);
+                                    }
+                                });
+                                e.stopPropagation();
+                            })
+                            .append($iconOnOff);   
+                        }else{
+                            $customOnOffButton = $("<button>")
+                            .attr({ class: "btn btn-success btn-xs", style: "margin-right: 3px;" })
+                            .attr({ role: "button" })
+                            .attr({ title: 'aktifkan User' })
+                            .attr({ id: "btn-onoff-cust-" + item.id })
+                            .click(function (e) {
+                                Swal.fire({
+                                    title: "Apakah pelanggan akan diaktifkan ?",
+                                    showDenyButton: false,
+                                    showCancelButton: true,
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Aktifkan!"
+                                }).then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                        //Swal.fire("Deleted!", "", "success"); 
+                                        setOnOffCust('on',item.id_pelanggan,item.nama,item.paket);
+                                    }
+                                });
+                                e.stopPropagation();
+                            })
+                            .append($iconOnOff);   
+                        }  
+                                    
                     return $("<div>")
                         // .append($customSwitchButton)
                         .append($customEditButton)
@@ -144,7 +182,10 @@ $(document).ready(function () {
         });
     });
 });
-function cariOrderlink() {
+function cariCustomerClick() {
+    // console.log('asfda');
+    setValue("searchcustomer",'');
+    
     var ret = $("#searchcustomer").val();
 
     $("#jsGridcustomer").jsGrid("search", { query: ret }).done(function () {
@@ -443,3 +484,51 @@ function batalAddmutasicustomer() {
 $('#customer_mutasi_tanggal').datetimepicker({
     format: 'YYYY-MM-DD'
 });
+// setOnOffCust('on',item.id_pelanggan,item.nama,item.paket);
+function setOnOffCust(vopt,vid_pelanggan,vnama,vpaket){
+    var formData = {
+        opt: vopt,
+        id_pelanggan: vid_pelanggan,
+        nama : vnama,
+        paket : vpaket
+    };
+
+    $.ajax({
+        // fixBug get url from global function only
+        // get global variable is bug!
+        url: base_url + "/setOnOffCustomer",
+        type: 'post',
+        data: formData,
+        cache: false,
+        dataType: 'json',
+        //   beforeSend: function() {
+        //     $('#form-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+        //   },
+        success: function (response) {
+            console.log(response);
+            if (response.success === true) {
+                // console.log(response.message);
+                Swal.fire(response.message, "", "success"); 
+                // batalAddOdp(); 
+                var ret = $("#searchcustomer").val();
+                $("#jsGridcustomer").jsGrid("search", { query: ret }).done(function () {
+                    
+                });
+                
+                
+
+            } else {
+                Swal.fire({
+                    toast: false,
+                    //   position: 'bottom-end',
+                    icon: 'error',
+                    title: response.message,
+                    //   showConfirmButton: false,
+                    timer: 3000
+                })
+
+            }
+            // $('#form-btn').html(getSubmitText());
+        }
+    });
+};

@@ -5,6 +5,7 @@ namespace App\Controllers\Pelanggan;
 use App\Controllers\BaseController;
 use App\Models\GSheetModel;
 use App\Models\CustomerModel;
+
 class CustomerController extends BaseController
 {
 
@@ -17,7 +18,7 @@ class CustomerController extends BaseController
         $limit = isset($_GET['pageSize']) ? $this->request->getGet('pageSize') : 20;
         $pageIndex = isset($_GET['pageIndex']) ? $this->request->getGet('pageIndex') : 0;
         $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
-        $offset = ($pageIndex-1)*$limit;
+        $offset = ($pageIndex - 1) * $limit;
 
         $gmodel = new GSheetModel();
         $values = $gmodel->getCustomer();
@@ -28,7 +29,7 @@ class CustomerController extends BaseController
             if (empty($v[0])) {
                 break;
             }
-            if($v[0] == 'No'){
+            if ($v[0] == 'No') {
                 continue;
             }
             if (empty($v[11])) {
@@ -53,9 +54,9 @@ class CustomerController extends BaseController
 
         $result['success'] = true;
         $result['data'] = $data;
-        $result["totalCount"]= $i;
-        $result["offset"]=$offset;
-        $result["limit"]=$limit;
+        $result["totalCount"] = $i;
+        $result["offset"] = $offset;
+        $result["limit"] = $limit;
         echo json_encode($result);
     }
 
@@ -89,20 +90,20 @@ class CustomerController extends BaseController
     {
         $data = $this->request->getGetPost();
         $cmd = strtolower($data['cmd']);
-        $retval =0;
+        $retval = 0;
         if ($cmd == 'editcustomer') {
             $postdata = $data;
             unset($postdata["cmd"]);
             unset($postdata["id"]);
             unset($postdata["id_pelanggan"]);
-                        
-            $postwhere["id_pelanggan"]=$data['id_pelanggan'];
-            $postwhere["id"]=$data['id'];            
-            $postdata["update_date"]=date('y-m-d h:i:s a');
-            $postdata["update_by"]=session()->get('username');
-            $model = new CustomerModel();          
-            $retval = $model->updateBuild('customer', $postdata,$postwhere);
-            
+
+            $postwhere["id_pelanggan"] = $data['id_pelanggan'];
+            $postwhere["id"] = $data['id'];
+            $postdata["update_date"] = date('y-m-d h:i:s a');
+            $postdata["update_by"] = session()->get('username');
+            $model = new CustomerModel();
+            $retval = $model->updateBuild('customer', $postdata, $postwhere);
+
         }
         // if($cmd == 'delete'){
         //     $postdata=$data;
@@ -110,27 +111,65 @@ class CustomerController extends BaseController
         //     $model = new CustomerModel();
         //     $retval=$model->deleteBuild('customer_reg',$postdata);
         // }
-        if($cmd == 'mutasi'){
-            $user=session()->get('username');
+        if ($cmd == 'mutasi') {
+            $user = session()->get('username');
             $model = new CustomerModel();
-            $result=$model->SP_execData(
+            $result = $model->SP_execData(
                 'sp_mutasi_paket',
-                array($data["id_pelanggan"],
-                $data["paket"],
-                $data["tgl_mutasi"],
-                $user));
-            if($result['success']){
-                $retval=1;
+                array(
+                    $data["id_pelanggan"],
+                    $data["paket"],
+                    $data["tgl_mutasi"],
+                    $user
+                )
+            );
+            if ($result['success']) {
+                $retval = 1;
             }
         }
 
         if ($retval > 0) {
-            $results['success'] = true;              
+            $results['success'] = true;
             $results['message'] = 'Execute successfully';
         } else {
             $results['success'] = false;
             $results['message'] = 'Execute Aborted!';
-        }            
+        }
+
+        return $this->response->setJSON($results);
+    }
+
+
+    public function updateOnOff()
+    {
+        $data = $this->request->getGetPost();
+        $retval = 0;
+
+
+        $user = session()->get('username');
+        $model = new CustomerModel();
+        $result = $model->SP_execData(
+            'sp_endis_cust',
+            array(
+                $data["opt"],
+                $data["id_pelanggan"],
+                $data["nama"],
+                $data["paket"],
+                $user
+            )
+        );
+        if ($result['success']) {
+            $retval = 1;
+        }
+
+
+        if ($retval > 0) {
+            $results['success'] = true;
+            $results['message'] = 'Execute successfully';
+        } else {
+            $results['success'] = false;
+            $results['message'] = 'Execute Aborted!';
+        }
 
         return $this->response->setJSON($results);
     }
