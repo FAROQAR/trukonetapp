@@ -66,11 +66,11 @@ $(function () {
             },
             // { title: 'ID', name: 'id', soritng: false, width: 100, visible: true },
             // { title: 'ID', name: 'id', soritng: false, width: 100 },
-            // { title: 'NOUSER', name: 'nouser', soritng: false, width: 100 },
+            // { title: 'NO', name: 'nomor', soritng: false, width: 100 },
             { title: 'ID USER', name: 'id_pelanggan', soritng: false, width: 130 },
             { title: 'NAMA', name: 'nama', soritng: false, width: 200 },
             { title: 'ALAMAT', name: 'alamat', soritng: false, width: 200 },
-            { title: 'KONTAK', name: 'kontak', soritng: false, width: 130 },
+            // { title: 'KONTAK', name: 'kontak', soritng: false, width: 130 },
             // { title: 'KECAMATAN', name: 'kecamatan', soritng: false, width: 100 },
             // { title: 'DESA', name: 'desa', soritng: false, width: 100 },
             { title: 'DUSUN', name: 'dusun', soritng: false, width: 100 },
@@ -79,17 +79,17 @@ $(function () {
             // { title: 'ODP', name: 'odp', soritng: false, width: 100 },
             // { title: 'MODEM SN', name: 'modem sn', soritng: false, width: 100 },
             { title: 'STATUS', name: 'status', soritng: false, width: 80 },
-            { title: 'TGL_ON', name: 'tgl_on', soritng: false, width: 100 },
-            { title: 'TARIF/BLN', name: 'tarif_bln', soritng: false, width: 100 },
+            // { title: 'TGL_ON', name: 'tgl_on', soritng: false, width: 100 },
+            // { title: 'TARIF/BLN', name: 'tarif_bln', soritng: false, width: 100 },
             // { title: 'JML_HARI', name: 'jml_hari', soritng: false, width: 100 },
-            { title: 'TARIF/HARI', name: 'tarif_hari', soritng: false, width: 100 },
+            // { title: 'TARIF/HARI', name: 'tarif_hari', soritng: false, width: 100 },
             // { title: 'TANGGAL_AKHIR', name: 'tanggal_akhir', soritng: false, width: 100 },
             // { title: 'LAMA_PAKAI', name: 'lama_pakai', soritng: false, width: 100 },
             { title: 'TAGIHAN', name: 'tagihan', soritng: false, width: 100 },
             { title: 'BI.ADMIN', name: 'bi_admin', soritng: false, width: 100 },
             { title: 'TOTAL', name: 'total_tagihan', soritng: false, width: 100 },
             { title: 'THBL', name: 'thbl', soritng: false, width: 80 },
-            { title: 'LUNAS', name: 'lunas', soritng: false, width: 80 },
+            // { title: 'LUNAS', name: 'lunas', soritng: false, width: 80 },
             { title: 'TGL LUNAS', name: 'tgl_lunas', soritng: false, width: 100 },
             { title: 'REF', name: 'ref_lunas', soritng: false, width: 120 },
 
@@ -133,6 +133,7 @@ function showCetakUlang(data) {
         tarif_bln: intlFormatNumber (data.tarif_bln,'en-US'),
         tgl_lunas: data.tgl_lunas,
         ref_lunas: data.ref_lunas,
+        thbl:data.thbl,
         tagihan:    intlFormatNumber (data.tagihan,'en-US'),
         bi_admin:    intlFormatNumber (data.bi_admin,'en-US'),
         total_tagihan:    intlFormatNumber (data.total_tagihan,'en-US')
@@ -143,5 +144,34 @@ function showCetakUlang(data) {
     window.open(base_url + '/printreceipt?data='+ JSON.stringify(formData), '_blank');
 }
 ;
+//Date picker
+// $(function() {
+    // $("#billclose_tgl_lunas").datetimepicker({
+    //     format: 'YYYY-MM-DD',    defaultDate: new Date()
+    //     // ,onchangeDate:function(event){
+    //     //     console.log('sino');
+    //     // }    
+    //     //   onchangeDate: function() {
+    //     //     console.log('sino');
+    //     //   },
+    // });
 
-
+    $(function () {
+        // init
+        $('#billclose_tgl_lunas').datetimepicker({format: 'YYYY-MM-DD',defaultDate: new Date()})
+        
+        //detect change
+        $("#billclose_tgl_lunas").on("change.datetimepicker", function (e) {
+            if (e.oldDate !== e.date) {
+                // alert('You picked: ' + new Date(e.date).toLocaleDateString('en-US'))
+                let tgl=new Date(e.date);
+                let d=tgl.getDate();
+                let m=tgl.getMonth()+1;
+                let y=tgl.getFullYear();
+                let ret=y+'-'+ ((m<10)?('0'+m):m) +'-'+ ((d<10)?('0'+d):d);
+                $("#jsGridBillClose").jsGrid("search", { query: ret,tanggal :ret }).done(function () {
+                    // console.log("filtering completed " );
+                });
+            }
+        })
+    })

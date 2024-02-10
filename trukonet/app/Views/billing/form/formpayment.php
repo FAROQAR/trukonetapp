@@ -41,8 +41,27 @@
             </div>
             <div class="form-group row">
                 <label for="tglon_payment" class="col-sm-1 col-form-label">Aktivasi</label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     <label class="form-control" id="tglon_payment" name="tgl_on"></label>
+                    <!-- <input type="text" class="form-control" id="tglon_payment" name="tgl_on" placeholder="tgl_on" readonly> -->
+                </div>
+
+                <label for="thbl_payment" class="col-sm-1 col-form-label">ThBl</label>
+                <div class="col-sm-2">
+                    <label class="form-control" id="thbl_payment" name="thbl"></label>
+                    <!-- <input type="text" class="form-control" id="tglon_payment" name="tgl_on" placeholder="tgl_on" readonly> -->
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="tgl_awal_payment" class="col-sm-1 col-form-label">Tanggal</label>
+                <div class="col-sm-2">
+                    <label class="form-control" id="tgl_awal_payment" name="tgl_awal"></label>
+                    <!-- <input type="text" class="form-control" id="tglon_payment" name="tgl_on" placeholder="tgl_on" readonly> -->
+                </div>
+
+                <label for="tgl_akhir_payment" class="col-sm-1 col-form-label">s/d</label>
+                <div class="col-sm-2">
+                    <label class="form-control" id="tgl_akhir_payment" name="tgl_akhir"></label>
                     <!-- <input type="text" class="form-control" id="tglon_payment" name="tgl_on" placeholder="tgl_on" readonly> -->
                 </div>
             </div>

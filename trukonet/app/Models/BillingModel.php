@@ -35,14 +35,27 @@ class BillingModel extends MBaseModel
 //        return $result;
     }
 
-    public function getBillPaging($limit, $offset, $strwhere = "")
+    public function getBillPaging($limit, $offset, $strwhere = "", $sortField = "id", $sortOrder = "asc")
     {
 
-        $sql = "SELECT id, nouser, nama, alamat, kontak, kecamatan, desa, dusun, paket, id_pelanggan, odp, modem_sn, `status`, 
-        tgl_on, tarif_bln, jml_hari, tarif_hari, tanggal_akhir, lama_pakai, tagihan, thbl, lunas,tgl_lunas,ref_lunas,bi_admin, 
-        total_tagihan FROM infouser";
+        // $sql = "SELECT id, nouser, nama, alamat, kontak, kecamatan, desa, dusun, paket, id_pelanggan, odp, modem_sn, `status`, 
+        // tgl_on, tarif_bln, jml_hari, tarif_hari, tanggal_akhir, lama_pakai, tagihan, thbl, lunas,tgl_lunas,ref_lunas,bi_admin, 
+        // total_tagihan FROM infouser";
+        //  $sql = "SELECT id, @rownum := ifnull(@rownum,0) + 1 nomor, nama, alamat, kontak, kecamatan, desa, dusun, paket, id_pelanggan, odp, modem_sn, `status`, 
+        //  tgl_on, tarif_bln, jml_hari, tarif_hari,tanggal_awal, tanggal_akhir, lama_pakai, tagihan, thbl, lunas,tgl_lunas,ref_lunas,bi_admin, 
+        //  total_tagihan FROM v_dpp";
+
+        $sql="SELECT customer_dpp.id, @rownum := ifnull(@rownum,0) + 1 nomor, nama, concat(customer.desa,', ',customer.rt_rw) alamat, kontak, kecamatan, desa, dusun, 
+        customer_dpp.paket, customer_dpp.id_pelanggan, odp, modem_sn, `status`, 
+                customer_dpp.tgl_on, tarif_bln, jml_hari, tarif_hari, tgl_awal as tanggal_awal,tgl_akhir as tanggal_akhir, lama_pakai, tagihan, thbl, lunas,tgl_lunas,ref_lunas,bi_admin, 
+                total_tagihan FROM customer_dpp inner join customer on customer_dpp.id_pelanggan = customer.id_pelanggan";
+
         if (strlen($strwhere) > 0) {
             $sql .= " where $strwhere";
+        }
+        if ((strlen($sortField) > 0) && (strlen($sortOrder) > 0)) {
+            $sql .= " order by $sortField $sortOrder";
+            // $sql .= " order by id asc";
         }
         $result = $this->db->query($sql . " limit $offset,$limit");
         $response['data'] = $result->getResultArray();

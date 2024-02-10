@@ -64,32 +64,32 @@ $(function () {
 
                 }
             },
-            // { title: 'ID', name: 'id', soritng: false, width: 100, visible: true },
-            // { title: 'ID', name: 'id', soritng: false, width: 100 },
-            // { title: 'NOUSER', name: 'nouser', soritng: false, width: 100 },
-            { title: 'ID USER', name: 'id_pelanggan', soritng: false, width: 130 },
-            { title: 'NAMA', name: 'nama', soritng: false, width: 200 },
-            { title: 'ALAMAT', name: 'alamat', soritng: false, width: 200 },
-            { title: 'KONTAK', name: 'kontak', soritng: false, width: 130 },
-            // { title: 'KECAMATAN', name: 'kecamatan', soritng: false, width: 100 },
-            // { title: 'DESA', name: 'desa', soritng: false, width: 100 },
-            { title: 'DUSUN', name: 'dusun', soritng: false, width: 100 },
-            { title: 'PAKET', name: 'paket', soritng: false, width: 100 },
+            // { title: 'ID', name: 'id', sorting: true, width: 100, visible: true },
+            // { title: 'ID', name: 'id', sorting: true, width: 100 },
+            // { title: 'NOUSER', name: 'nouser', sorting: true, width: 100 },
+            { title: 'ID USER', name: 'id_pelanggan', sorting: true, width: 130 },
+            { title: 'NAMA', name: 'nama', sorting: true, width: 200 },
+            { title: 'ALAMAT', name: 'alamat', sorting: true, width: 200 },
+            { title: 'KONTAK', name: 'kontak', sorting: true, width: 130 },
+            // { title: 'KECAMATAN', name: 'kecamatan', sorting: true, width: 100 },
+            // { title: 'DESA', name: 'desa', sorting: true, width: 100 },
+            { title: 'DUSUN', name: 'dusun', sorting: true, width: 100 },
+            { title: 'PAKET', name: 'paket', sorting: true, width: 100 },
 
-            // { title: 'ODP', name: 'odp', soritng: false, width: 100 },
-            // { title: 'MODEM SN', name: 'modem sn', soritng: false, width: 100 },
-            { title: 'STATUS', name: 'status', soritng: false, width: 80 },
-            { title: 'TGL_ON', name: 'tgl_on', soritng: false, width: 100 },
-            { title: 'TARIF/BLN', name: 'tarif_bln', soritng: false, width: 100 },
-            // { title: 'JML_HARI', name: 'jml_hari', soritng: false, width: 100 },
-            { title: 'TARIF/HARI', name: 'tarif_hari', soritng: false, width: 100 },
-            // { title: 'TANGGAL_AKHIR', name: 'tanggal_akhir', soritng: false, width: 100 },
-            // { title: 'LAMA_PAKAI', name: 'lama_pakai', soritng: false, width: 100 },
-            { title: 'TAGIHAN', name: 'tagihan', soritng: false, width: 100 },
-            { title: 'BI.ADMIN', name: 'bi_admin', soritng: false, width: 100 },
-            { title: 'TOTAL', name: 'total_tagihan', soritng: false, width: 100 },
-            { title: 'THBL', name: 'thbl', soritng: false, width: 80 },
-            { title: 'LUNAS', name: 'lunas', soritng: false, width: 80 },
+            // { title: 'ODP', name: 'odp', sorting: true, width: 100 },
+            // { title: 'MODEM SN', name: 'modem sn', sorting: true, width: 100 },
+            { title: 'STATUS', name: 'status', sorting: true, width: 80 },
+            { title: 'TGL_ON', name: 'tgl_on', sorting: true, width: 100 },
+            { title: 'TARIF/BLN', name: 'tarif_bln', sorting: true, width: 100 },
+            // { title: 'JML_HARI', name: 'jml_hari', sorting: true, width: 100 },
+            { title: 'TARIF/HARI', name: 'tarif_hari', sorting: true, width: 100 },
+            // { title: 'TANGGAL_AKHIR', name: 'tanggal_akhir', sorting: true, width: 100 },
+            // { title: 'LAMA_PAKAI', name: 'lama_pakai', sorting: true, width: 100 },
+            { title: 'TAGIHAN', name: 'tagihan', sorting: true, width: 100 },
+            { title: 'BI.ADMIN', name: 'bi_admin', sorting: true, width: 100 },
+            { title: 'TOTAL', name: 'total_tagihan', sorting: true, width: 100 },
+            { title: 'THBL', name: 'thbl', sorting: true, width: 80 },
+            { title: 'LUNAS', name: 'lunas', sorting: true, width: 80 },
 
 
 
@@ -135,6 +135,9 @@ function showPayment(data) {
     setText('alamat_payment', data.alamat + ", " + data.dusun);
     setText('paket_payment', (data.paket == 1 ? '5 Mbps' : data.paket == 2 ? '10 Mbps' : data.paket == 3 ? '20 Mbps' : ''));
     setText('tglon_payment', data.tgl_on);
+    setText('thbl_payment', data.thbl);
+    setText('tgl_awal_payment', data.tanggal_awal);
+    setText('tgl_akhir_payment', data.tanggal_akhir);
     setText('tarifbulan_payment', intlFormatNumber(data.tarif_bln,'en-US'));
     setText('tagihan_payment', intlFormatNumber(data.tagihan,'en-US'));
     setText('bi_admin_payment', intlFormatNumber(data.bi_admin,'en-US'));
@@ -172,6 +175,9 @@ $("#formpaymentlist").on("submit", function (event) {
         alamat: $("#alamat_payment").text(),
         paket: $("#paket_payment").text(),
         tgl_on: $("#tglon_payment").text(),
+        thbl: $("#thbl_payment").text(),
+        tanggal_awal: $("#tgl_awal_payment").text(),
+        tanggal_akhir: $("#tgl_akhir_payment").text(),
         tarif_bln: $("#tarifbulan_payment").text(),
         tagihan: $("#tagihan_payment").text(),
         bi_admin: $("#bi_admin_payment").text(),
@@ -210,6 +216,7 @@ $("#formpaymentlist").on("submit", function (event) {
                     alamat: $("#alamat_payment").text(),
                     paket: $("#paket_payment").text(),
                     tgl_on: $("#tglon_payment").text(),
+                    thbl: $("#thbl_payment").text(),
                     tarif_bln: $("#tarifbulan_payment").text(),
                     tagihan: $("#tagihan_payment").text(),
                     bi_admin: $("#bi_admin_payment").text(),

@@ -16,9 +16,9 @@
 <!--                        <div class="btn btn-success btn-sm" style="margin-right: 3px;">
                             <div class="fa fa-plus" onclick="showAddBma" role="button" ></div>
                         </div>-->
-                        <div type="button" class="btn btn-success btn-sm" style="margin-right: 3px;" onclick="showAddcustomer()">
+                        <!-- <div type="button" class="btn btn-success btn-sm" style="margin-right: 3px;" onclick="showAddcustomer()">
                             <i class="fa fa-plus" ></i>
-                        </div>
+                        </div> -->
                         <input type="text" name="table_search" id="searchcustomer" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
                             <button type="button" class="btn btn-default" id="btnsearchcustomer" onclick="cariCustomerClick()">

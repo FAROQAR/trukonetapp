@@ -118,6 +118,7 @@ body.struk .sheet {
             $dusun = $profile->dusun. str_repeat("&nbsp;", (48 - (strlen($profile->dusun))));
             $paket = $profile->paket. str_repeat("&nbsp;", (40 - (strlen($profile->paket))));
             $tglon = $profile->tgl_on. str_repeat("&nbsp;", (40 - (strlen($profile->tgl_on))));
+            $thbl = $profile->thbl. str_repeat("&nbsp;", (40 - (strlen($profile->thbl))));
             // $tarif = $profile->tarif_bln. str_repeat("&nbsp;", (40 - (strlen($profile->tarif_bln))));
             // $tagihan = $profile->tagihan. str_repeat("&nbsp;", (40 - (strlen($profile->tagihan))));
             // $bi_admin = $profile->bi_admin. str_repeat("&nbsp;", (40 - (strlen($profile->bi_admin))));
@@ -156,6 +157,11 @@ body.struk .sheet {
                         <td align="left" class="txt-left">Aktif&nbsp;</td>
                         <td align="left" class="txt-left">:</td>
                         <td align="left" class="txt-left">&nbsp;'. $tglon.'</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="txt-left">ThblTag&nbsp;</td>
+                        <td align="left" class="txt-left">:</td>
+                        <td align="left" class="txt-left">&nbsp;'. $thbl.'</td>
                     </tr>
                     <tr>
                         <td align="left" class="txt-left">Paket&nbsp;</td>
