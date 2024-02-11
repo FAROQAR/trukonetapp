@@ -186,5 +186,28 @@ class CustomerModel extends MBaseModel
 
     }
 
+    public function getTicketingPaging($limit, $offset, $strwhere = "", $sortField = "id", $sortOrder = "asc")
+    {
+        $sql = "SELECT SELECT id, no_ticket, nama, id_pelanggan, profile, action_ref, tgl_ticket, ticket_by, tgl_execute, execute_by, status 
+        FROM tehnisi_ticketing";
+        if (strlen($strwhere) > 0) {
+            $sql .= " where $strwhere";
+        }
+        if ((strlen($sortField) > 0) && (strlen($sortOrder) > 0)) {
+            $sql .= " order by $sortField $sortOrder";
+            // $sql .= " order by id asc";
+        }
+        $result = $this->db->query($sql . " limit $offset,$limit");
+        $response['data'] = $result->getResultArray();
+        $result->freeResult();
+
+        $result = $this->db->query($sql);
+        $response["totalCount"] = $result->getNumRows();
+
+        $result->freeResult();
+        return $response;
+
+    }
+
 
 }

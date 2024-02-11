@@ -322,6 +322,7 @@
     <script src="<?= base_url(); ?>/assets/js/serverlist.js"></script>
     <script src="<?= base_url(); ?>/assets/js/orderlink.js"></script>
     <script src="<?= base_url(); ?>/assets/js/customer.js"></script>
+    <script src="<?= base_url(); ?>/assets/js/technician.js"></script>
     <script>
         function logout() {
             //                console.log("<?= base_url('/logout'); ?>");

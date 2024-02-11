@@ -82,7 +82,7 @@ $routes->get('/customer', 'Pelanggan::load', ['filter' => 'authenticate']);
 
 $routes->get('/billclose', 'Billing::load', ['filter' => 'authenticate']);
 
-$routes->get('/secret', 'Technician::load', ['filter' => 'authenticate']);
+
         
 $routes->get('pages/(:any)', 'Pages::index/$1');
 $routes->get('master/(:any)/(:any)', 'Master::index/$1/$2');
@@ -133,8 +133,11 @@ $routes->get('loadBillclose', 'Billing\Billclose::getRows');
 
 $routes->get('printreceipt', 'Billing::printreceipt');
 
-
+$routes->get('/secret', 'Technician::load', ['filter' => 'authenticate']);
 $routes->get('loadSecret', 'Technician\ActionController::getRows');
+
+$routes->get('/active', 'Technician::load', ['filter' => 'authenticate']);
+$routes->get('loadActive', 'Technician\ActionController::getRowsActive');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
