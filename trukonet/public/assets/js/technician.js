@@ -34,6 +34,9 @@ function loadSecret($pagenumber){
             let reccount=response.record;
             let data=response.data;
             let pg=document.getElementById('pagingsecret');
+            if(pg == null){
+                return;
+            }
             while (pg.hasChildNodes()) {
                 pg.removeChild(pg.firstChild);
               }
@@ -219,6 +222,9 @@ function loadActive($pagenumber){
             let reccount=response.record;
             let data=response.data;
             let pg=document.getElementById('pagingactive');
+            if(pg == null){
+                return;
+            }
             while (pg.hasChildNodes()) {
                 pg.removeChild(pg.firstChild);
               }

@@ -138,6 +138,11 @@ $routes->get('loadSecret', 'Technician\ActionController::getRows');
 
 $routes->get('/active', 'Technician::load', ['filter' => 'authenticate']);
 $routes->get('loadActive', 'Technician\ActionController::getRowsActive');
+
+$routes->get('/ticket', 'Technician::load', ['filter' => 'authenticate']);
+$routes->get('loadTicket', 'Technician\TicketController::getRows');
+$routes->post('setExecTicket', 'Technician\TicketController::executeTicket');
+$routes->post('setAbortedTicket', 'Technician\TicketController::abortedTicket');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

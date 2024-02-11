@@ -188,7 +188,7 @@ class CustomerModel extends MBaseModel
 
     public function getTicketingPaging($limit, $offset, $strwhere = "", $sortField = "id", $sortOrder = "asc")
     {
-        $sql = "SELECT SELECT id, no_ticket, nama, id_pelanggan, profile, action_ref, tgl_ticket, ticket_by, tgl_execute, execute_by, status 
+        $sql = "SELECT id, no_ticket, nama, id_pelanggan, `profile`, action_ref,comment, tgl_ticket, ticket_by, tgl_execute, execute_by, status 
         FROM tehnisi_ticketing";
         if (strlen($strwhere) > 0) {
             $sql .= " where $strwhere";

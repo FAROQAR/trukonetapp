@@ -107,7 +107,29 @@ class MikrotikCommModel extends MikrotikModel
             return false;
         }
     }
-
+    public function setAdd($name,$profile,$comment){   
+        $id=$this->getSecretIdByName($name);   
+        if($id){
+            if($this->connect(env('IP_Mikrotik'), env('USER_Mikrotik'),env('PASSWORD_Mikrotik'))){
+                // $this->comm('/ppp/secret/set comment="" =numbers=*3C');
+                $this->comm('/ppp/secret/add',array(
+                    "name"     => $name,
+                    "password" => "truko123",
+                    "profile" => $profile,
+                    "comment"  => $comment,
+                    "service"  => "pppoe",
+                    
+                )); 
+                $this->disconnect();
+                return $this->returnValue(true,'Execute Successfull',[]);
+            }else{
+                return $this->returnValue(false,'Execute Aborted',[]);
+            }
+        }else{
+            return $this->returnValue(false,'Execute Aborted',[]);
+        }
+        
+    }
     public function setProfile($name,$profile){   
         $id=$this->getSecretIdByName($name);   
         if($id){
