@@ -17,6 +17,23 @@ class Home extends BaseController
         $breadcrumbhref='#';
         $breadcrumbhreftext='Home';
         $preload=true;
+        $order=$model->getOrder();
+        $userd=$model->getUserActive();
+        $useron=0;
+        $useroff=0;
+        if(count($userd)>0){
+            foreach($userd as $r){
+                if($r->status == 'on'){
+                    $useron=$r->jml;
+                }
+                if($r->status == 'off'){
+                    $useroff=$r->jml;
+                }
+            }
+        }
+        $useraktif=$useron.'/'.$useroff;
+        $dppm=$model->getDppM();
+        $dpph=$model->getDppH();
         // $session = session();
         // echo json_encode($menu);return;
 //        return view('welcome_message');
@@ -27,6 +44,10 @@ class Home extends BaseController
             'breadcrumbhref'=>$breadcrumbhref,
             'breadcrumbhreftext'=>$breadcrumbhreftext,
             'preload'=>$preload,
+            'order'=>$order->retval,
+            'useraktif'=>$useraktif,
+            'dppm'=>$dppm,
+            'dpph'=>$dpph,
 //            'username'=>$session->
             ]);
     }
@@ -39,6 +60,7 @@ class Home extends BaseController
         $breadcrumbhref='#';
         $breadcrumbhreftext='Home';
         $preload=true;
+        $order=$model->getOrder();
 //        echo json_encode($menu);
 //        return view('welcome_message');
         return view('home',[
@@ -47,7 +69,8 @@ class Home extends BaseController
             'breadcrumbactive'=>$breadcrumbactive,
             'breadcrumbhref'=>$breadcrumbhref,
             'breadcrumbhreftext'=>$breadcrumbhreftext,
-            'preload'=>$preload
+            'preload'=>$preload,
+            'order'=>$order,
             ]);
     }
     public function widgets()

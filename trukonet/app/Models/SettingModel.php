@@ -166,4 +166,57 @@ FROM sys_rolemenu sys_rolemenu
         
     }
 
+    public function getOrder(){
+        $retval = $this->selectQuery("select count(*) as retval from customer_reg where status !='on' ");
+        return $retval->getRow();
+    }
+    public function getUserActive(){
+        $retval = $this->selectQuery("select status,count(*) as jml from customer group by status");
+        return $retval->getResultObject();
+    }
+
+    public function getDppM(){
+        $tgl=date('Ym');
+
+        $retval = $this->selectQuery("select lunas,count(*) as jml from customer_dpp where thbl=period_add($tgl,-1) group by lunas");
+        $ret=$retval->getResultObject();
+        $rec=$retval->getNumRows();
+        $lunas=0;
+        $tunggakan=0;
+        if($rec>0){
+            foreach($ret as $r){
+                if($r->lunas=='0'){
+                    $tunggakan=$r->jml;
+                }
+                if($r->lunas=='1'){
+                    $lunas=$r->jml;
+                }
+            }
+        }
+        $result=$lunas.'/'.$tunggakan;
+        return $result;
+    }
+    public function getDppH(){
+        $tgl=date('Ym');
+
+        $retval = $this->selectQuery("select lunas,count(*) as jml from customer_dpp where thbl=$tgl group by lunas");
+        $ret=$retval->getResultObject();
+        $rec=$retval->getNumRows();
+        $lunas=0;
+        $tunggakan=0;
+        if($rec>0){
+            foreach($ret as $r){
+                if($r->lunas=='0'){
+                    $tunggakan=$r->jml;
+                }
+                if($r->lunas=='1'){
+                    $lunas=$r->jml;
+                }
+            }
+        }
+        $result=$lunas.'/'.$tunggakan;
+        return $result;
+    }
+
+
 }

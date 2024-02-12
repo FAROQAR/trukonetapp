@@ -167,24 +167,24 @@ function loadSecret($pagenumber){
                     divbodyisilist6.innerHTML='comment : ' + dt.comment;
                     divbodyisilist.appendChild(divbodyisilist6);                
     
-                    let divbodyfooter = document.createElement('div');
-                    divbodyfooter.classList.add('card-footer');
-                    divbodyfooter.classList.add('bg-black');
-                    // divbodyfooter.className='card-footer';
+                    // let divbodyfooter = document.createElement('div');
+                    // divbodyfooter.classList.add('card-footer');
+                    // divbodyfooter.classList.add('bg-black');
+                    // // divbodyfooter.className='card-footer';
     
-                    let divbodyfooterisi = document.createElement('div');
-                    divbodyfooterisi.className='text-right';
+                    // let divbodyfooterisi = document.createElement('div');
+                    // divbodyfooterisi.className='text-right';
     
-                    let divbodyfooterisibtn = document.createElement('button');
-                    divbodyfooterisibtn.classList.add('btn-sm');
-                    divbodyfooterisibtn.classList.add('btn-danger');
-                    let divbodyfooterisibtnicon = document.createElement('i');                
-                    divbodyfooterisibtnicon.classList.add('fas');
-                    divbodyfooterisibtnicon.classList.add('fa-cog');
+                    // let divbodyfooterisibtn = document.createElement('button');
+                    // divbodyfooterisibtn.classList.add('btn-sm');
+                    // divbodyfooterisibtn.classList.add('btn-danger');
+                    // let divbodyfooterisibtnicon = document.createElement('i');                
+                    // divbodyfooterisibtnicon.classList.add('fas');
+                    // divbodyfooterisibtnicon.classList.add('fa-cog');
                     
-                    divbodyfooterisibtn.appendChild(divbodyfooterisibtnicon);
-                    divbodyfooterisi.appendChild(divbodyfooterisibtn);
-                    divbodyfooter.appendChild(divbodyfooterisi);
+                    // divbodyfooterisibtn.appendChild(divbodyfooterisibtnicon);
+                    // divbodyfooterisi.appendChild(divbodyfooterisibtn);
+                    // divbodyfooter.appendChild(divbodyfooterisi);
     
                     divbodycol.appendChild(divbodyisi);
                     divbodycol.appendChild(divbodyisilist);
@@ -193,7 +193,7 @@ function loadSecret($pagenumber){
     
                     div2.appendChild(divtitle);
                     div2.appendChild(divbody);
-                    div2.appendChild(divbodyfooter);
+                    // div2.appendChild(divbodyfooter);
                     div1.appendChild(div2);
                     
                     gr.appendChild(div1);
@@ -355,24 +355,24 @@ function loadActive($pagenumber){
                     divbodyisilist6.innerHTML='comment : ' + dt.comment;
                     divbodyisilist.appendChild(divbodyisilist6);                
     
-                    let divbodyfooter = document.createElement('div');
-                    divbodyfooter.classList.add('card-footer');
-                    divbodyfooter.classList.add('bg-black');
-                    // divbodyfooter.className='card-footer';
+                    // let divbodyfooter = document.createElement('div');
+                    // divbodyfooter.classList.add('card-footer');
+                    // divbodyfooter.classList.add('bg-black');
+                    // // divbodyfooter.className='card-footer';
     
-                    let divbodyfooterisi = document.createElement('div');
-                    divbodyfooterisi.className='text-right';
+                    // let divbodyfooterisi = document.createElement('div');
+                    // divbodyfooterisi.className='text-right';
     
-                    let divbodyfooterisibtn = document.createElement('button');
-                    divbodyfooterisibtn.classList.add('btn-sm');
-                    divbodyfooterisibtn.classList.add('btn-danger');
-                    let divbodyfooterisibtnicon = document.createElement('i');                
-                    divbodyfooterisibtnicon.classList.add('fas');
-                    divbodyfooterisibtnicon.classList.add('fa-cog');
+                    // let divbodyfooterisibtn = document.createElement('button');
+                    // divbodyfooterisibtn.classList.add('btn-sm');
+                    // divbodyfooterisibtn.classList.add('btn-danger');
+                    // let divbodyfooterisibtnicon = document.createElement('i');                
+                    // divbodyfooterisibtnicon.classList.add('fas');
+                    // divbodyfooterisibtnicon.classList.add('fa-cog');
                     
-                    divbodyfooterisibtn.appendChild(divbodyfooterisibtnicon);
-                    divbodyfooterisi.appendChild(divbodyfooterisibtn);
-                    divbodyfooter.appendChild(divbodyfooterisi);
+                    // divbodyfooterisibtn.appendChild(divbodyfooterisibtnicon);
+                    // divbodyfooterisi.appendChild(divbodyfooterisibtn);
+                    // divbodyfooter.appendChild(divbodyfooterisi);
     
                     divbodycol.appendChild(divbodyisi);
                     divbodycol.appendChild(divbodyisilist);
@@ -381,7 +381,7 @@ function loadActive($pagenumber){
     
                     div2.appendChild(divtitle);
                     div2.appendChild(divbody);
-                    div2.appendChild(divbodyfooter);
+                    // div2.appendChild(divbodyfooter);
                     div1.appendChild(div2);
                     
                     gr.appendChild(div1);
