@@ -44,6 +44,7 @@ class Billpending extends BaseController
         $model = new BillingModel();
         $data = $this->request->getGetPost();
         $tgllunas = date("Y-m-d");
+        // return;
         $reflunas = $model->getsetMasterCode(true, 'infouser', 'IBA' . date("Ymd") . '-', true, 1);
         $retval = $model->updateBuild(
             'customer_dpp',
@@ -52,6 +53,21 @@ class Billpending extends BaseController
         );
         
         if ($retval > 0) {
+            $status=$model->callFunction('getRefCustomer', array('status', $data["id_pelanggan"]));
+            $paket=$model->callFunction('getRefCustomer', array('paket', $data["id_pelanggan"]));
+            $user = session()->get('username');
+            if($status=='off'){
+                $res= $model->SP_execData(
+                    'sp_endis_cust',
+                    array(
+                        'TE',
+                        $data["id_pelanggan"],
+                        $data["nama"],
+                        $paket,
+                        $user
+                    )
+                );
+            }
             $results['success'] = true;
             // $results['message'] = $data['cmd'];
             $results['message'] = 'Execute successfully';

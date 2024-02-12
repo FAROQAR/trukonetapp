@@ -169,7 +169,8 @@ function showCetakUlang(data) {
                 let m=tgl.getMonth()+1;
                 let y=tgl.getFullYear();
                 let ret=y+'-'+ ((m<10)?('0'+m):m) +'-'+ ((d<10)?('0'+d):d);
-                $("#jsGridBillClose").jsGrid("search", { query: ret,tanggal :ret }).done(function () {
+                var retu = $("#billclosecaritext").val();
+                $("#jsGridBillClose").jsGrid("search", { query: retu,tanggal :ret }).done(function () {
                     // console.log("filtering completed " );
                 });
             }

@@ -14,12 +14,14 @@
     <!-- SweetAlert2 -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script> -->
     <link rel="stylesheet" type="text/css" 
     href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <!-- iCheck -->
     <link rel="stylesheet" href="<?= base_url(); ?>/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
@@ -324,6 +326,7 @@
     <script src="<?= base_url(); ?>/assets/js/customer.js"></script>
     <script src="<?= base_url(); ?>/assets/js/technician.js"></script>
     <script src="<?= base_url(); ?>/assets/js/ticket.js"></script>
+    <script src="<?= base_url(); ?>/assets/js/billprocess.js"></script>
     <script>
         function logout() {
             //                console.log("<?= base_url('/logout'); ?>");

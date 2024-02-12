@@ -5,8 +5,11 @@ namespace App\Controllers\Technician;
 use App\Controllers\BaseController;
 use App\Models\CustomerModel;
 use App\Models\MikrotikCommModel;
+use CodeIgniter\API\ResponseTrait;
 class TicketController extends BaseController
 {
+
+    use ResponseTrait;
     public function index()
     {
         //

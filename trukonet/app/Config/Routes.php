@@ -81,7 +81,7 @@ $routes->get('/orderlink', 'Pelanggan::load', ['filter' => 'authenticate']);
 $routes->get('/customer', 'Pelanggan::load', ['filter' => 'authenticate']);
 
 $routes->get('/billclose', 'Billing::load', ['filter' => 'authenticate']);
-
+$routes->get('/billprocess', 'Billing::load', ['filter' => 'authenticate']);
 
         
 $routes->get('pages/(:any)', 'Pages::index/$1');
@@ -132,6 +132,9 @@ $routes->get('billno', 'Billing\Billpending::setCode');
 $routes->get('loadBillclose', 'Billing\Billclose::getRows');
 
 $routes->get('printreceipt', 'Billing::printreceipt');
+
+$routes->get('loadBillprocess', 'Billing\Billprocess::getRows');
+$routes->post('genBill', 'Billing\Billprocess::genBill');
 
 $routes->get('/secret', 'Technician::load', ['filter' => 'authenticate']);
 $routes->get('loadSecret', 'Technician\ActionController::getRows');
