@@ -60,7 +60,7 @@ class Billpending extends BaseController
                 $res= $model->SP_execData(
                     'sp_endis_cust',
                     array(
-                        'TE',
+                        'on',
                         $data["id_pelanggan"],
                         $data["nama"],
                         $paket,

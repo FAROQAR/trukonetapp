@@ -29,7 +29,9 @@ class TicketController extends BaseController
         //        startIndex = (filter.pageIndex - 1) * filter.pageSize
         $where = "";
         if (strlen($search) > 0) {
-            $where .= "status='ticket' and (id_pelanggan like'%$search%' or nama like'%$search%')";
+            $where = "status='ticket' and (id_pelanggan like'%$search%' or nama like'%$search%')";
+        }else{
+            $where = "status='ticket'";
         }
 
         $model = new CustomerModel();

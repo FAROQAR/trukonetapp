@@ -73,4 +73,23 @@ class Billprocess extends BaseController
 
         return $this->response->setJSON($results);
     }
+
+    public function getBillRekap()
+    {
+        $data = $this->request->getGet();
+        $retval = 0;
+
+// $data=array('tgl'=>'2024-01-26');
+        $user = session()->get('username');
+        $model = new BillingModel();
+        $retval=$model->selectQuery("
+        Select count(id_pelanggan) as pelanggan,sum(bi_admin) as admin, sum(tagihan) as tagihan, 
+        sum(total_tagihan) total_tagihan from customer_dpp 
+        where tgl_lunas='$data[tgl]'");
+
+        $result['success'] = true;
+        $result['data'] = ($retval->getResultObject())[0];
+        // echo json_encode($result);
+        return $this->response->setJSON($result);
+    }
 }

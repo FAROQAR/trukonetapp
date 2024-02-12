@@ -71,4 +71,18 @@ class Billing extends BaseController {
         // return view('welcome_message');
         return view('nota', ['profile' => $data]);
     }
+
+    public function printbillreport()
+    {
+        $data=json_decode( $this->request->getGet('data') );
+        // echo $data->nama;
+        
+        // $arr=  explode(",", $data); 
+        // $profile = $data;
+        // $profile = $data;
+        // $this->load->view('nota_generic', ['profile' => $profile]);
+        //return view('nota_generic', ['profile' => $profile]);
+        // return view('welcome_message');
+        return view('reportbill', ['profile' => $data]);
+    }
 }
