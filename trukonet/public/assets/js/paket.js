@@ -74,7 +74,7 @@ $(function () {
                                     /* Read more about isConfirmed, isDenied below */
                                     if (result.isConfirmed) {
                                       //Swal.fire("Deleted!", "", "success"); 
-                                      deleteOdp(item.idpaket);
+                                      deletePaket(item.idpaket);
                                     } 
                                   });
                                 e.stopPropagation();

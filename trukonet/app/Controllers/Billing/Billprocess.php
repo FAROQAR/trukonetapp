@@ -17,7 +17,7 @@ class Billprocess extends BaseController
     {
         $limit = isset($_GET['pageSize']) ? $this->request->getGet('pageSize') : 10;
         $pageIndex = isset($_GET['pageIndex']) ? $this->request->getGet('pageIndex') : 0;
-        $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
+        $search = isset($_GET['query']) ? $this->request->getGet('query') : array();
         $thbl = isset($_GET['thbl']) ? $this->request->getGet('thbl') : date('Ym');
         $sortField = isset($_GET['sortField']) ? $this->request->getGet('sortField') : 'id';
         $sortOrder = isset($_GET['sortOrder']) ? $this->request->getGet('sortOrder') : 'asc';
@@ -33,6 +33,8 @@ class Billprocess extends BaseController
         if (count($search) > 0) {
             $where = "thbl='$search[thbl]'";
             $where .= " and (customer_dpp.id_pelanggan like'%$search[cari]%' or customer.nama like'%$search[cari]%')";
+        }else{
+            $where = "thbl='$thbl'";
         }
 
 
