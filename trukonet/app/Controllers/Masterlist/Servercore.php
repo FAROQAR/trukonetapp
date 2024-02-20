@@ -62,7 +62,7 @@ class Servercore extends BaseController
 
         $result['success'] = true;
 
-        echo json_encode($result);
+        return $this->response->setJSON($result);
     }
 
     public function updateRows()

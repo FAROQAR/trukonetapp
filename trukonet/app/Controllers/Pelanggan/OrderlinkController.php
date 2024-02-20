@@ -111,7 +111,7 @@ class OrderlinkController extends BaseController
         $result["totalCount"] = $i;
         $result["offset"] = $offset;
         $result["limit"] = $limit;
-        echo json_encode($result);
+        return $this->response->setJSON($result);
     }
 
     public function getRows()

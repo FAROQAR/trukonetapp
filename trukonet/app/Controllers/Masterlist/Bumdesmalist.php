@@ -46,7 +46,7 @@ class Bumdesmalist extends BaseController {
         $result = $model->getBmaPaging($limit, $offset, $where);
         $result['success'] = true;
 
-        echo json_encode($result);
+        return $this->response->setJSON($result);
     }
 
     public function updateRows() {
