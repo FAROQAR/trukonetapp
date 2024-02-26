@@ -9,11 +9,12 @@ $(function () {
         pageLoading: true,
         pageSize: 10,
         pageIndex: 1,
-
+        fitering: true,
         controller: {
             loadData: function (filter) {
                 //                var base_url = window.location.origin;
                 var d = $.Deferred();
+                // var tgl = $()
                 $.ajax({
                     url: base_url + "/loadBillclose",
                     data: filter,
@@ -106,18 +107,23 @@ $(function () {
 
 $(document).ready(function () {
     $("#billclosecaritext").on("keyup", function () {
-        var ret = $(this).val().toLowerCase();
-        $("#jsGridBillClose").jsGrid("search", { query: ret }).done(function () {
-            // console.log("filtering completed ");
-        });
+        //   console.log($('#billclose_tgl_lunas').val());
+        var retu = $(this).val().toLowerCase();
+        var ret = $("#billclose_tgl_lunas").val();
+        searchBillClose(ret,retu);
+        // $("#jsGridBillClose").jsGrid("search", { query: ret, tanggal: retu }).done(function () {
+        //     // console.log("filtering completed ");
+        // });
+ 
     });
 });
 function caribillclose() {
-    var ret = $("#billclosecaritext").val();
-
-    $("#jsGridBillClose").jsGrid("search", { query: ret }).done(function () {
-        // console.log("filtering completed " );
-    });
+    var retu = $("#billclosecaritext").val();
+    var ret = $("#billclose_tgl_lunas").val();
+    // $("#jsGridBillClose").jsGrid("search", { query: ret, tanggal: retu }).done(function () {
+    //     // console.log("filtering completed ");
+    // });
+    searchBillClose(ret,retu);
 }
 
 function showCetakUlang(data) {
@@ -128,51 +134,70 @@ function showCetakUlang(data) {
         nama: data.nama,
         alamat: data.alamat,
         dusun: data.dusun,
-        paket: (data.paket==1?'5 Mbps':data.paket==2?'10 Mbps':data.paket==3?'20 Mbps':''),
-        tgl_on:data.tgl_on,
-        tarif_bln: intlFormatNumber (data.tarif_bln,'en-US'),
+        paket: (data.paket == 1 ? '5 Mbps' : data.paket == 2 ? '10 Mbps' : data.paket == 3 ? '20 Mbps' : ''),
+        tgl_on: data.tgl_on,
+        tarif_bln: intlFormatNumber(data.tarif_bln, 'en-US'),
         tgl_lunas: data.tgl_lunas,
         ref_lunas: data.ref_lunas,
-        thbl:data.thbl,
-        tagihan:    intlFormatNumber (data.tagihan,'en-US'),
-        bi_admin:    intlFormatNumber (data.bi_admin,'en-US'),
-        total_tagihan:    intlFormatNumber (data.total_tagihan,'en-US')
+        thbl: data.thbl,
+        tagihan: intlFormatNumber(data.tagihan, 'en-US'),
+        bi_admin: intlFormatNumber(data.bi_admin, 'en-US'),
+        total_tagihan: intlFormatNumber(data.total_tagihan, 'en-US')
     };
     // var base_url = window.location.origin;
     // window.location(base_url + '/printreceipt');
     // location.href=base_url + '/printreceipt?data='+ JSON.stringify(formData);
-    window.open(base_url + '/printreceipt?data='+ JSON.stringify(formData), '_blank');
+    window.open(base_url + '/printreceipt?data=' + JSON.stringify(formData), '_blank');
 }
 ;
-//Date picker
-// $(function() {
-    // $("#billclose_tgl_lunas").datetimepicker({
-    //     format: 'YYYY-MM-DD',    defaultDate: new Date()
-    //     // ,onchangeDate:function(event){
-    //     //     console.log('sino');
-    //     // }    
-    //     //   onchangeDate: function() {
-    //     //     console.log('sino');
-    //     //   },
-    // });
 
-    $(function () {
-        // init
-        $('#billclose_tgl_lunas').datetimepicker({format: 'YYYY-MM-DD',defaultDate: new Date()})
+function searchBillClose(vtgl,vsearch){
+    $("#jsGridBillClose").jsGrid("reset");
+    var filter=$("#jsGridBillClose").jsGrid("getFilter");
+    $("#jsGridBillClose").jsGrid({
         
-        //detect change
-        $("#billclose_tgl_lunas").on("change.datetimepicker", function (e) {
-            if (e.oldDate !== e.date) {
-                // alert('You picked: ' + new Date(e.date).toLocaleDateString('en-US'))
-                let tgl=new Date(e.date);
-                let d=tgl.getDate();
-                let m=tgl.getMonth()+1;
-                let y=tgl.getFullYear();
-                let ret=y+'-'+ ((m<10)?('0'+m):m) +'-'+ ((d<10)?('0'+d):d);
-                var retu = $("#billclosecaritext").val();
-                $("#jsGridBillClose").jsGrid("search", { query: retu,tanggal :ret }).done(function () {
-                    // console.log("filtering completed " );
+        // filtering: true,
+        controller: {
+            loadData: function (filter) {
+                //                var base_url = window.location.origin;
+                var d = $.Deferred();
+                // var tgl = $()
+                
+                $.ajax({
+                    url: base_url + "/loadBillclose",
+                    // params: { query: retu, tanggal: ret },
+                    data:  { query: vsearch, tanggal: vtgl,pageIndex:filter.pageIndex,pageSize:filter.pageSize},
+                    dataType: "json",
+                    success: function (response) {
+                        var ret = {
+                            data: response.data,
+                            itemsCount: response.totalCount
+                        };
+                        d.resolve(ret);
+                    }
                 });
+
+                return d.promise();
             }
-        })
+         },
+      });
+}
+$(function () {
+    // init
+    $('#billclose_tgl_lunas').datetimepicker({ format: 'YYYY-MM-DD', defaultDate: new Date() })
+
+    //detect change
+    $("#billclose_tgl_lunas").on("change.datetimepicker", function (e) {
+        if (e.oldDate !== e.date) {
+            // alert('You picked: ' + new Date(e.date).toLocaleDateString('en-US'))
+            let tgl = new Date(e.date);
+            let d = tgl.getDate();
+            let m = tgl.getMonth() + 1;
+            let y = tgl.getFullYear();
+            let ret = y + '-' + ((m < 10) ? ('0' + m) : m) + '-' + ((d < 10) ? ('0' + d) : d);
+            var retu = $("#billclosecaritext").val();
+            searchBillClose(ret,retu);
+            
+        }
     })
+})

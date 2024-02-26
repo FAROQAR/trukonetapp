@@ -76,6 +76,36 @@ class Billprocess extends BaseController
         return $this->response->setJSON($results);
     }
 
+    public function genBillIdpel(){
+        $data = $this->request->getGetPost();
+        $retval = 0;
+
+
+        $user = session()->get('username');
+        $model = new BillingModel();
+        $result = $model->SP_execData(
+            'hitung_billing_idpel',
+            array(
+                $data["thbl"],
+                $data["idpel"]
+            )
+        );
+        if ($result['success']) {
+            $retval = 1;
+        }
+
+
+        if ($retval > 0) {
+            $results['success'] = true;
+            $results['message'] = 'Execute successfully';
+        } else {
+            $results['success'] = false;
+            $results['message'] = 'Execute Aborted!';
+        }
+
+        return $this->response->setJSON($results);
+    }
+
     public function getBillRekap()
     {
         $data = $this->request->getGet();

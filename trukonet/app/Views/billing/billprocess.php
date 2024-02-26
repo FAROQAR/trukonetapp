@@ -3,6 +3,7 @@
 
 <div class="content-wrapper">
     <section class="content" style="padding-top:10px;">
+    <?= view('billing/form/formbillprocess'); ?>
         <div id="billprocesslist" class="card">
             <div class="card-header">
                 <h3 class="card-title">
@@ -14,7 +15,11 @@
                         <!--                        <div class="btn btn-success btn-sm" style="margin-right: 3px;">
                             <div class="fa fa-plus" onclick="showAddBma" role="button" ></div>
                         </div>-->
-                        <div type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;"
+                        <div type="button" class="btn btn-success btn-sm" style="margin-right: 10px;"
+                            onclick="showGenBillIdpel()">
+                            <i class="fa fa-cogs"></i> Process Bill By User
+                        </div>
+                        <div type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;"
                             onclick="genBill()">
                             <i class="fa fa-cogs"></i> Process Bill
                         </div>
@@ -50,7 +55,46 @@
         <i class="fas fa-chevron-up"></i>
     </a>
 </div>
+<!-- /.content-wrapper -->
+<div id="billprocess-modal" class="modal">
 
+    <!-- Modal content -->
+    <div  class="modal-content" style="width:400px;position: relative;margin: auto;">
+
+        <div class="card card-warning" style="width:100%;height: 100%;position: relative;margin: auto;">
+            <div class="card-header">
+                <h3 id="billprocess-modal-title" class="card-title">Removable</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" >
+                        <i class="fas fa-times" onclick="document.getElementById('billprocess-modal').style.display = 'none'"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                The body of the card
+            </div>
+            <!-- /.card-body -->
+        </div>
+
+        <!--      <div class="modal-header">
+                                    <h4 class="modal-title">Logout</h4>
+                                    <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+                                    </button>
+                                </div>
+            <div class="modal-body">
+              <p>Some text in the Modal Body</p>
+              <p>Some other text...</p>
+            </div>
+        -->    <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        </div>
+    </div>
+
+</div>
 
 <?= $this->endSection(); ?>
 <?= $this->section("pageScript") ?>

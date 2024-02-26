@@ -16,7 +16,7 @@ class Billclose extends BaseController
     public function getRows()
     {
         $limit = isset($_GET['pageSize']) ? $this->request->getGet('pageSize') : 10;
-        $pageIndex = isset($_GET['pageIndex']) ? $this->request->getGet('pageIndex') : 0;
+        $pageIndex = isset($_GET['pageIndex']) ? $this->request->getGet('pageIndex') : 1;
         $search = isset($_GET['query']) ? $this->request->getGet('query') : '';
         $tanggal = isset($_GET['tanggal']) ? $this->request->getGet('tanggal') : '';
         $sortField = isset($_GET['sortField']) ? $this->request->getGet('sortField') : 'id';

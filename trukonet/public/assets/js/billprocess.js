@@ -83,9 +83,9 @@ $(function () {
             { title: 'TARIF/BLN', name: 'tarif_bln', sorting: true, width: 100 },
             { title: 'JML_HARI', name: 'jml_hari', sorting: true, width: 100 },
             { title: 'TARIF/HARI', name: 'tarif_hari', sorting: true, width: 100 },
-            { title: 'TANGGAL_AWAL', name: 'tanggal_awal', sorting: true, width: 100 },
-            { title: 'TANGGAL_AKHIR', name: 'tanggal_akhir', sorting: true, width: 100 },
-            { title: 'LAMA_PAKAI', name: 'lama_pakai', sorting: true, width: 100 },
+            { title: 'AWAL', name: 'tanggal_awal', sorting: true, width: 100 },
+            { title: 'AKHIR', name: 'tanggal_akhir', sorting: true, width: 100 },
+            { title: 'LAMA', name: 'lama_pakai', sorting: true, width: 100 },
             { title: 'TAGIHAN', name: 'tagihan', sorting: true, width: 100 },
             { title: 'BI.ADMIN', name: 'bi_admin', sorting: true, width: 100 },
             { title: 'TOTAL', name: 'total_tagihan', sorting: true, width: 100 },
@@ -109,9 +109,10 @@ $(document).ready(function () {
         var ret = $(this).val().toLowerCase();
         var $thbl = $('#billprocess_thbl').val().replace('-', '');
         // console.log(thbl);
-        $("#jsGridbillprocess").jsGrid("search", { query: { cari: ret, thbl: $thbl }}).done(function () {
-            // console.log("filtering completed ");
-        });
+        // $("#jsGridbillprocess").jsGrid("search", { query: { cari: ret, thbl: $thbl }}).done(function () {
+        //     // console.log("filtering completed ");
+        // });
+        searchBillProcess($thbl,ret);
     });
 });
 function caribillprocess() {
@@ -119,9 +120,10 @@ function caribillprocess() {
     var ret = $("#billprocesscaritext").val();
     var $thbl = $('#billprocess_thbl').val().replace('-', '');
     // console.log(thbl);
-    $("#jsGridbillprocess").jsGrid("search", { query: { cari: ret, thbl: $thbl }}).done(function () {
-        // console.log("filtering completed ");
-    });
+    // $("#jsGridbillprocess").jsGrid("search", { query: { cari: ret, thbl: $thbl }}).done(function () {
+    //     // console.log("filtering completed ");
+    // });
+    searchBillProcess($thbl,ret);
 }
 
 function genBill() {
@@ -210,9 +212,141 @@ $(function () {
             let ret = y + ((m < 10) ? ('0' + m) : m);
             // console.log(ret );
             var retu = $("#billprocesscaritext").val();
-            $("#jsGridbillprocess").jsGrid("search", { query: { cari: retu, thbl: ret }}).done(function () {
-                // console.log("filtering completed " );
-            });
+            // $("#jsGridbillprocess").jsGrid("search", { query: { cari: retu, thbl: ret }}).done(function () {
+            //     // console.log("filtering completed " );
+            // });
+            searchBillProcess(ret,retu);
         }
     })
 })
+
+function searchBillProcess(vthbl,vsearch){
+    $("#jsGridbillprocess").jsGrid("reset");
+    var filter=$("#jsGridbillprocess").jsGrid("getFilter");
+    $("#jsGridbillprocess").jsGrid({
+        
+        // filtering: true,
+        controller: {
+            loadData: function (filter) {
+                //                var base_url = window.location.origin;
+                var d = $.Deferred();
+                // var tgl = $()
+                
+                $.ajax({
+                    url: base_url + "/loadBillprocess",
+                    // params: { query: retu, tanggal: ret },
+                    data:  { query: { cari: vsearch, thbl: vthbl },pageIndex:filter.pageIndex,pageSize:filter.pageSize},
+                    dataType: "json",
+                    success: function (response) {
+                        var ret = {
+                            data: response.data,
+                            itemsCount: response.totalCount
+                        };
+                        d.resolve(ret);
+                    }
+                });
+
+                return d.promise();
+            }
+         },
+      });
+}
+
+
+//-----------------
+function batalbillprocess(){
+    hideComp('cardbillprocesslist');
+    showComp('billprocesslist');
+    
+}
+function showGenBillIdpel() {
+   
+    hideComp('billprocesslist');
+    showComp('cardbillprocesslist');
+
+    $('#thbl_billprocess').datetimepicker({
+        format: 'YYYY-MM',
+        defaultDate: new Date(),
+
+        // format: "mm/yyyy",
+        // startView: "months", 
+        minViewMode: 1,
+
+    });
+    
+}
+;
+
+function genBillIdpel() {
+    Swal.fire({
+        title: "Apakah yakin akan proses Billing ?",
+        // showDenyButton: false,
+        showCancelButton: true,
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes"
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            //Swal.fire("Deleted!", "", "success"); 
+            var $thbl = $('#thbl_billprocess').val().replace('-', '');
+            var $idpel=  $('#id_pelanggan_billprocess').val();
+            if ($thbl == '') {
+                Swal.fire({
+                    toast: false,
+                    //   position: 'bottom-end',
+                    icon: "warning",
+                    title: "Tahun Bulan Tidak Valid !",
+                    //   showConfirmButton: false,
+                    timer: 3000,
+                });
+                if ($idpel == '') {
+                    Swal.fire({
+                        toast: false,
+                        //   position: 'bottom-end',
+                        icon: "warning",
+                        title: "Id Pelanggan Tidak Valid !",
+                        //   showConfirmButton: false,
+                        timer: 3000,
+                    });
+            } else {
+                $.ajax({
+                    // fixBug get url from global function only
+                    // get global variable is bug!
+                    url: base_url + "/genBillIdpel",
+                    type: "post",
+                    data: { thbl: $thbl, idpel:$idpel },
+                    cache: false,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response.success === true) {
+                            // console.log(response.message);
+
+                            Swal.fire({
+                                // position: "top-end",
+                                icon: "success",
+                                title: response.message,
+                                // showConfirmButton: false,
+                                // timer: 1500
+                            }).then((result) => {
+
+                                caribillprocess();
+                                batalbillprocess();
+                            });
+                        } else {
+                            Swal.fire({
+                                toast: false,
+                                //   position: 'bottom-end',
+                                icon: "error",
+                                title: response.message,
+                                //   showConfirmButton: false,
+                                timer: 3000,
+                            });
+                        }
+                    },
+                });
+            }
+        }
+    });
+
+}

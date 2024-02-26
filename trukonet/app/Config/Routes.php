@@ -137,6 +137,7 @@ $routes->get('printbillreport', 'Billing::printbillreport');
 
 $routes->get('loadBillprocess', 'Billing\Billprocess::getRows');
 $routes->post('genBill', 'Billing\Billprocess::genBill');
+$routes->post('genBillIdpel', 'Billing\Billprocess::genBillIdpel');
 $routes->get('billrekap', 'Billing\Billprocess::getBillRekap');
 
 $routes->get('/secret', 'Technician::load', ['filter' => 'authenticate']);
