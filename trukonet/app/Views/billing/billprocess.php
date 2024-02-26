@@ -11,11 +11,11 @@
                 </h3>
                 
                 <div class="card-tools">               
-                    <div class="input-group input-group-sm" style="width: 400px;">
+                    <div class="input-group input-group-sm" style="width: 550px;">
                         <!--                        <div class="btn btn-success btn-sm" style="margin-right: 3px;">
                             <div class="fa fa-plus" onclick="showAddBma" role="button" ></div>
                         </div>-->
-                        <div type="button" class="btn btn-success btn-sm" style="margin-right: 10px;"
+                        <div type="button" class="btn btn-success btn-sm" style="margin-right: 5px;"
                             onclick="showGenBillIdpel()">
                             <i class="fa fa-cogs"></i> Process Bill By User
                         </div>

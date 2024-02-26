@@ -112,7 +112,7 @@ $(document).ready(function () {
         // $("#jsGridbillprocess").jsGrid("search", { query: { cari: ret, thbl: $thbl }}).done(function () {
         //     // console.log("filtering completed ");
         // });
-        searchBillProcess($thbl,ret);
+        searchBillProcess($thbl, ret);
     });
 });
 function caribillprocess() {
@@ -123,7 +123,7 @@ function caribillprocess() {
     // $("#jsGridbillprocess").jsGrid("search", { query: { cari: ret, thbl: $thbl }}).done(function () {
     //     // console.log("filtering completed ");
     // });
-    searchBillProcess($thbl,ret);
+    searchBillProcess($thbl, ret);
 }
 
 function genBill() {
@@ -215,27 +215,27 @@ $(function () {
             // $("#jsGridbillprocess").jsGrid("search", { query: { cari: retu, thbl: ret }}).done(function () {
             //     // console.log("filtering completed " );
             // });
-            searchBillProcess(ret,retu);
+            searchBillProcess(ret, retu);
         }
     })
 })
 
-function searchBillProcess(vthbl,vsearch){
+function searchBillProcess(vthbl, vsearch) {
     $("#jsGridbillprocess").jsGrid("reset");
-    var filter=$("#jsGridbillprocess").jsGrid("getFilter");
+    var filter = $("#jsGridbillprocess").jsGrid("getFilter");
     $("#jsGridbillprocess").jsGrid({
-        
+
         // filtering: true,
         controller: {
             loadData: function (filter) {
                 //                var base_url = window.location.origin;
                 var d = $.Deferred();
                 // var tgl = $()
-                
+
                 $.ajax({
                     url: base_url + "/loadBillprocess",
                     // params: { query: retu, tanggal: ret },
-                    data:  { query: { cari: vsearch, thbl: vthbl },pageIndex:filter.pageIndex,pageSize:filter.pageSize},
+                    data: { query: { cari: vsearch, thbl: vthbl }, pageIndex: filter.pageIndex, pageSize: filter.pageSize },
                     dataType: "json",
                     success: function (response) {
                         var ret = {
@@ -248,19 +248,19 @@ function searchBillProcess(vthbl,vsearch){
 
                 return d.promise();
             }
-         },
-      });
+        },
+    });
 }
 
 
 //-----------------
-function batalbillprocess(){
+function batalbillprocess() {
     hideComp('cardbillprocesslist');
     showComp('billprocesslist');
-    
+
 }
 function showGenBillIdpel() {
-   
+
     hideComp('billprocesslist');
     showComp('cardbillprocesslist');
 
@@ -273,7 +273,7 @@ function showGenBillIdpel() {
         minViewMode: 1,
 
     });
-    
+
 }
 ;
 
@@ -289,7 +289,7 @@ function genBillIdpel() {
         if (result.isConfirmed) {
             //Swal.fire("Deleted!", "", "success"); 
             var $thbl = $('#thbl_billprocess').val().replace('-', '');
-            var $idpel=  $('#id_pelanggan_billprocess').val();
+            var $idpel = $('#id_pelanggan_billprocess').val();
             if ($thbl == '') {
                 Swal.fire({
                     toast: false,
@@ -308,43 +308,44 @@ function genBillIdpel() {
                         //   showConfirmButton: false,
                         timer: 3000,
                     });
-            } else {
-                $.ajax({
-                    // fixBug get url from global function only
-                    // get global variable is bug!
-                    url: base_url + "/genBillIdpel",
-                    type: "post",
-                    data: { thbl: $thbl, idpel:$idpel },
-                    cache: false,
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response);
-                        if (response.success === true) {
-                            // console.log(response.message);
+                } else {
+                    $.ajax({
+                        // fixBug get url from global function only
+                        // get global variable is bug!
+                        url: base_url + "/genBillIdpel",
+                        type: "post",
+                        data: { thbl: $thbl, idpel: $idpel },
+                        cache: false,
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                            if (response.success === true) {
+                                // console.log(response.message);
 
-                            Swal.fire({
-                                // position: "top-end",
-                                icon: "success",
-                                title: response.message,
-                                // showConfirmButton: false,
-                                // timer: 1500
-                            }).then((result) => {
+                                Swal.fire({
+                                    // position: "top-end",
+                                    icon: "success",
+                                    title: response.message,
+                                    // showConfirmButton: false,
+                                    // timer: 1500
+                                }).then((result) => {
 
-                                caribillprocess();
-                                batalbillprocess();
-                            });
-                        } else {
-                            Swal.fire({
-                                toast: false,
-                                //   position: 'bottom-end',
-                                icon: "error",
-                                title: response.message,
-                                //   showConfirmButton: false,
-                                timer: 3000,
-                            });
-                        }
-                    },
-                });
+                                    caribillprocess();
+                                    batalbillprocess();
+                                });
+                            } else {
+                                Swal.fire({
+                                    toast: false,
+                                    //   position: 'bottom-end',
+                                    icon: "error",
+                                    title: response.message,
+                                    //   showConfirmButton: false,
+                                    timer: 3000,
+                                });
+                            }
+                        },
+                    });
+                }
             }
         }
     });
