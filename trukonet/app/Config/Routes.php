@@ -139,6 +139,8 @@ $routes->get('loadBillprocess', 'Billing\Billprocess::getRows');
 $routes->post('genBill', 'Billing\Billprocess::genBill');
 $routes->post('genBillIdpel', 'Billing\Billprocess::genBillIdpel');
 $routes->get('billrekap', 'Billing\Billprocess::getBillRekap');
+$routes->get('billrekapbulan', 'Billing\Billprocess::getBillRekapBulan');
+$routes->get('billdetail', 'Billing\Billprocess::getBillDetail');
 
 $routes->get('/secret', 'Technician::load', ['filter' => 'authenticate']);
 $routes->get('loadSecret', 'Technician\ActionController::getRows');
