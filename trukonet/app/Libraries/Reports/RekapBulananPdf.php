@@ -56,7 +56,7 @@ class RekapBulananPdf extends MY_FPDF {
 
     public function set_header_column($w) {
 //    $this->Ln();
-$header  = array('Tanggal', 'THBL Tag', 'Tagihan', 'Bi Admin', 'Total Tagihan');
+$header  = array('Tanggal', 'Pelanggan', 'Tagihan', 'Bi Admin', 'Total Tagihan');
         // $header = array('', 'Debet', 'Kredit', 'Debet', 'Kredit', 'Debet', 'Kredit', 'Debet', 'Kredit', 'Debet', 'Kredit');
         $hcell = 5;
         $this->SetFillColor(255, 255, 255);
@@ -83,7 +83,7 @@ $this->SetX(30);
     }
 
     function create_pdf($data) {
-        $header  = array('Tanggal', 'THBL Tag', 'Tagihan', 'Bi Admin', 'Total Tagihan');
+        $header  = array('Tanggal', 'Pelanggan', 'Tagihan', 'Bi Admin', 'Total Tagihan');
         $this->AddPage();
 //        $this->SetAutoPageBreak(true, 18);
         $this->SetDrawColor(0, 0, 0);
