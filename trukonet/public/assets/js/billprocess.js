@@ -217,6 +217,34 @@ $(function () {
             // });
             searchBillProcess(ret, retu);
         }
+    });
+
+    $('#billreport_thbl').datetimepicker({
+        format: 'YYYY-MM',
+        defaultDate: new Date(),
+
+        // format: "mm/yyyy",
+        // startView: "months", 
+        minViewMode: 1,
+
+    });
+
+    //detect change
+    $("#billreport_thbl").on("change.datetimepicker", function (e) {
+        if (e.oldDate !== e.date) {
+            // alert('You picked: ' + new Date(e.date).toLocaleDateString('en-US'))
+            let tgl = new Date(e.date);
+            let d = tgl.getDate();
+            let m = tgl.getMonth() + 1;
+            let y = tgl.getFullYear();
+            let ret = y + ((m < 10) ? ('0' + m) : m);
+            // // console.log(ret );
+            // var retu = $("#billprocesscaritext").val();
+            // // $("#jsGridbillprocess").jsGrid("search", { query: { cari: retu, thbl: ret }}).done(function () {
+            // //     // console.log("filtering completed " );
+            // // });
+            // searchBillProcess(ret, retu);
+        }
     })
 })
 

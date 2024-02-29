@@ -159,9 +159,9 @@ class Billprocess extends BaseController
 
     public function getBillDetail()
     {
-        $data = $this->request->getGet();
+        $data = $this->request->getGet('tgl');
         $retval = 0;
-
+// return json_encode( $data);
 // $data=array('tgl'=>'2024-01-26');
         $user = session()->get('username');
         $model = new BillingModel();
@@ -178,17 +178,18 @@ class Billprocess extends BaseController
             total_tagihan AS total_tagihan,
             ref_lunas AS ref_lunas       
         FROM customer_dpp 
-        WHERE tgl_lunas='$data[tgl]' order by ref_lunas");
+        WHERE tgl_lunas='$data' order by ref_lunas");
         
         $resultarr = $retval->getResultArray();
-
+$tgl=explode('-',$data);
+$retu1 = $tgl[2] . '-' . $tgl[1] . '-' . $tgl[0];
         $pdf = new PelunasanDetailPdf('P', 'mm', 'A4');
         $pdf->AliasNbPages();
         $pdf->SetMargins(5, 5, 5);
         $pdf->SetTitle('PELUNASAN HARIAN');
         $pdf->setCompany('BUMDesa Berkah Amanah', 'Jl.Silayar Polaman Truko');
 
-        $pdf->setDataheader(array($data['tgl']));
+        $pdf->setDataheader(array($retu1));
         $pdf->SetFont('Arial', '', 14);
 //        $pdf->AddPage('L');
 //        $pdf->create_pdf(array($param,$result,$rekap));

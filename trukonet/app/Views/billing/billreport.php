@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="callout callout-info">
-                        <div class="input-group input-group-sm" style="width: 400px;">
-                            <label for="billreport_tgl_lunas" class="col-sm ">Tanggal Lunas</label>
+                        <div class="input-group input-group-sm" style="width: 650px;">
+                            <label for="billreport_tgl_lunas" class="col-sm-3 ">Tanggal Lunas</label>
                             <input type="text" id="billreport_tgl_lunas" name="datetimepicker"
                                 class="form-control datetimepicker-input" data-target="#billreport_tgl_lunas"
                                 placeholder="Tanggal Lunas" />
@@ -19,6 +19,21 @@
                             <div type="button" class="btn btn-success btn-sm" style="margin-left: 5px;"
                                 onclick="previewreport()">
                                 <i class="fa fa-cogs"></i> Preview
+                            </div>
+                            <div type="button" class="btn btn-success btn-sm" style="margin-left: 5px;"
+                                onclick="previewdetail()">
+                                <i class="fa fa-cogs"></i> Detail
+                            </div>
+                            <input type="text" id="billreport_thbl" name="datetimepicker" 
+                                class="form-control datetimepicker-input" data-target="#billreport_thbl"
+                                placeholder="Tahun Bulan" style="margin-left: 5px;"/>
+                            <div class="input-group-append" data-target="#billreport_thbl" data-toggle="datetimepicker"
+                                style="margin-right: 3px;">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                            <div type="button" class="btn btn-success btn-sm" style="margin-left: 5px;"
+                                onclick="previewrekap()">
+                                <i class="fa fa-cogs"></i> Rekap
                             </div>
                         </div>
 
@@ -202,6 +217,34 @@
 
         $('#tglreport').onshow = previewreport();
         // $('#tgltotal').onshow=settanggal();
+
+        $('#billreport_thbl').datetimepicker({
+            format: 'YYYY-MM',
+            defaultDate: new Date(),
+
+            // format: "mm/yyyy",
+            // startView: "months", 
+            minViewMode: 1,
+
+        });
+
+        //detect change
+        $("#billreport_thbl").on("change.datetimepicker", function (e) {
+            if (e.oldDate !== e.date) {
+                // alert('You picked: ' + new Date(e.date).toLocaleDateString('en-US'))
+                let tgl = new Date(e.date);
+                let d = tgl.getDate();
+                let m = tgl.getMonth() + 1;
+                let y = tgl.getFullYear();
+                let ret = y + ((m < 10) ? ('0' + m) : m);
+                // // console.log(ret );
+                // var retu = $("#billprocesscaritext").val();
+                // // $("#jsGridbillprocess").jsGrid("search", { query: { cari: retu, thbl: ret }}).done(function () {
+                // //     // console.log("filtering completed " );
+                // // });
+                // searchBillProcess(ret, retu);
+            }
+        })
     });
     function settanggal() {
         var retu = $('#billreport_tgl_lunas').val();
@@ -262,18 +305,18 @@
                 console.log(response);
                 if (response.success === true) {
                     var tgl = retu.split('-');
-        var retu1 = tgl[2] + '-' + tgl[1] + '-' + tgl[0];
+                    var retu1 = tgl[2] + '-' + tgl[1] + '-' + tgl[0];
                     let data = response.data;
-                    let formData={
-                        tglreport:retu1,
-                        tgltotal:retu1,
-                        reppel1:data.pelanggan,
-                        reppel2:data.pelanggan,
-                        reptagihan:intlFormatNumber(data.tagihan, 'en-US'),
-                        repadmin:intlFormatNumber(data.admin, 'en-US'),
-                        repsubtotal:intlFormatNumber(data.total_tagihan, 'en-US')
+                    let formData = {
+                        tglreport: retu1,
+                        tgltotal: retu1,
+                        reppel1: data.pelanggan,
+                        reppel2: data.pelanggan,
+                        reptagihan: intlFormatNumber(data.tagihan, 'en-US'),
+                        repadmin: intlFormatNumber(data.admin, 'en-US'),
+                        repsubtotal: intlFormatNumber(data.total_tagihan, 'en-US')
                     };
-                    window.open(base_url + '/printbillreport?data='+ JSON.stringify(formData), '_blank');
+                    window.open(base_url + '/printbillreport?data=' + JSON.stringify(formData), '_blank');
                 } else {
                     Swal.fire({
                         toast: false,
@@ -288,6 +331,16 @@
                 // $('#form-btn').html(getSubmitText());
             }
         });
+    }
+    function previewdetail() {
+        var retu = $('#billreport_tgl_lunas').val();
+        var tgl = retu.split('-');
+        var retu1 = tgl[2] + '-' + tgl[1] + '-' + tgl[0];
+        window.open(base_url + '/billdetail?tgl=' + retu, '_blank');
+    }
+    function previewrekap() {
+        var $thbl = $('#billreport_thbl').val().replace('-', '');
+        window.open(base_url + '/billrekapbulan?thbl=' + $thbl, '_blank');
     }
 </script>
 <?= $this->endSection(); ?>
