@@ -178,7 +178,8 @@ FROM sys_rolemenu sys_rolemenu
     public function getDppM(){
         $tgl=date('Ym');
 
-        $retval = $this->selectQuery("select lunas,count(*) as jml from customer_dpp where thbl=period_add($tgl,-1) group by lunas");
+        $retval = $this->selectQuery("select lunas, sum(jml) as jml from (select lunas,1 as jml from customer_dpp where thbl=period_add($tgl,-1) 
+        union all select lunas,1 as jml from customer_dpp where thbl<period_add($tgl,-1) and lunas=0  ) a group by lunas");
         $ret=$retval->getResultObject();
         $rec=$retval->getNumRows();
         $lunas=0;

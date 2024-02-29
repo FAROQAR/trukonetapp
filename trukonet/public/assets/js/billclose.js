@@ -169,6 +169,7 @@ function searchBillClose(vtgl,vsearch){
                     data:  { query: vsearch, tanggal: vtgl,pageIndex:filter.pageIndex,pageSize:filter.pageSize},
                     dataType: "json",
                     success: function (response) {
+                        
                         var ret = {
                             data: response.data,
                             itemsCount: response.totalCount
@@ -181,6 +182,7 @@ function searchBillClose(vtgl,vsearch){
             }
          },
       });
+      $("#jsGridBillClose").jsGrid("refresh");
 }
 $(function () {
     // init
