@@ -44,15 +44,17 @@ $(function () {
                         .attr({ title: 'Execute Ticket' })
                         .attr({ id: "btn-exec-ticket-" + item.id })
                         .click(function (e) {
-                                                        //    alert("Exec: " + item.id);
+                            //    alert("Exec: " + item.id);
                             // showEditticket(item);
                             // document.location.href = item.id + "/edit";
                             Swal.fire({
                                 title: "Apakah Ticket Akan di Eksekusi ?",
-                                showDenyButton: false,
+                                text: "Jalankan!",
+                                icon: "warning",
                                 showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
                                 cancelButtonColor: "#d33",
-                                confirmButtonText: "Jalankan!"
+                                confirmButtonText: "Yes"
                             }).then((result) => {
                                 /* Read more about isConfirmed, isDenied below */
                                 if (result.isConfirmed) {
@@ -71,8 +73,10 @@ $(function () {
                         .click(function (e) {
                             Swal.fire({
                                 title: "Apakah Ticket tersebut akan di Batalkan ?",
-                                showDenyButton: false,
+                                text: "Jalankan!",
+                                icon: "warning",
                                 showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
                                 cancelButtonColor: "#d33",
                                 confirmButtonText: "Yes"
                             }).then((result) => {
@@ -85,11 +89,11 @@ $(function () {
                             e.stopPropagation();
                         })
                         .append($iconAborted);
-                         
+
                     return $("<div>")
                         // .append($customSwitchButton)
                         .append($executeButton)
-                         .append($abortedButton)
+                        .append($abortedButton)
                         ;
 
                 }
@@ -103,7 +107,7 @@ $(function () {
             { title: 'REF', name: 'action_ref', soritng: false, width: 65 },
             { title: 'TGL.TICKET', name: 'tgl_ticket', soritng: false, width: 130 },
             { title: 'TICKET.BY', name: 'ticket_by', soritng: false, width: 120 }
-            
+
 
         ]
     });
@@ -119,8 +123,8 @@ $(document).ready(function () {
 });
 function cariTicketClick() {
     // console.log('asfda');
-    setValue("searchticket",'');
-    
+    setValue("searchticket", '');
+
     var ret = $("#searchticket").val();
 
     $("#jsGridticket").jsGrid("search", { query: ret }).done(function () {
@@ -128,12 +132,12 @@ function cariTicketClick() {
     });
 }
 
-function setExecuteTicket(item){
+function setExecuteTicket(item) {
     var formData = {
         opt: item.action_ref,
         no_ticket: item.no_ticket,
         id_pelanggan: item.id_pelanggan,
-        profile : item.profile,
+        profile: item.profile,
         comment: item.comment
     };
     $.ajax({
@@ -151,14 +155,14 @@ function setExecuteTicket(item){
             console.log(response);
             if (response.success === true) {
                 // console.log(response.message);
-                Swal.fire(response.message, "", "success"); 
+                Swal.fire(response.message, "", "success");
                 // batalAddOdp(); 
                 var ret = $("#searchticket").val();
                 $("#jsGridticket").jsGrid("search", { query: ret }).done(function () {
-                    
+
                 });
-                
-                
+
+
 
             } else {
                 Swal.fire({
@@ -176,12 +180,12 @@ function setExecuteTicket(item){
     });
 };
 
-function setAbortedTicket(item){
+function setAbortedTicket(item) {
     var formData = {
         opt: item.action_ref,
         no_ticket: item.no_ticket,
         id_pelanggan: item.id_pelanggan,
-        profile : item.profile,
+        profile: item.profile,
         comment: item.comment
     };
     $.ajax({
@@ -199,14 +203,14 @@ function setAbortedTicket(item){
             console.log(response);
             if (response.success === true) {
                 // console.log(response.message);
-                Swal.fire(response.message, "", "success"); 
+                Swal.fire(response.message, "", "success");
                 // batalAddOdp(); 
                 var ret = $("#searchticket").val();
                 $("#jsGridticket").jsGrid("search", { query: ret }).done(function () {
-                    
+
                 });
-                
-                
+
+
 
             } else {
                 Swal.fire({

@@ -4,6 +4,8 @@
  */
 
 var base_url = window.location.origin;
+// var base_url_origin = window.location.origin+'/adminet';
+// var base_url_hosting = 'https://adminet.my.id/truko';
 function getComp(id){
     return document.getElementById(id);
 }
