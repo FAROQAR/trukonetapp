@@ -6,26 +6,53 @@
     <!-- Main content -->
     <section class="content" style="padding-top:10px;" id="sectionactive">
         <!-- Default box -->
-        <div class="card card-solid">
-            <div class="card-body pb-0">
-                <div class="row" id="jsGridactive">                  
+        <div id="secretactivelist" class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <?= $title ?>
+                </h3>
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 300px;">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnloadsecretactive"
+                            onclick="loaddatasecretactive()" style="margin-right: 3px;">
+                            Load Secret
+                            <i class="fas fa-cogs"></i>
+
+                        </button>
+                        <input type="text" name="table_search" id="searchsecretactive" class="form-control float-right"
+                            placeholder="Search">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-default" id="btnsearchsecretactive"
+                                onclick="cariSecretActiveClick()">
+                                <i class="fas fa-search"></i>
+
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            <nav aria-label="Contacts Page Navigation">
-                <ul class="pagination justify-content-center m-0" id="pagingactive">
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                </ul>
-            </nav>
+            <div class="card card-solid">
+                <div class="card-body pb-0">
+                    <div class="row" id="jsGridactive">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <nav aria-label="Contacts Page Navigation">
+                    <ul class="pagination justify-content-center m-0" id="pagingactive">
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                        <li class="page-item"><a class="page-link" href="#">8</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </section>
     <!-- /.content -->

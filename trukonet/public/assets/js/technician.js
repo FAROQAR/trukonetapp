@@ -8,13 +8,27 @@
 
 // });
 $(function(){
-    $("#sectionsecret").onshow=
-        loadSecret(0);
+    // $("#sectionsecret").onshow=
+    //     loadSecret(0);
 
-        $("#sectionactive").onshow=
-        loadActive(0);        
+    //     $("#sectionactive").onshow=
+    //     loadActive(0);        
     
 });
+
+var urlLoadSecret=base_url + "/loadSecret";
+
+function loaddatasecret(){
+    urlLoadSecret=base_url + "/loadSecret";
+    loadSecret(0);
+}
+
+function cariSecretClick(){
+    var cari= getSelectorValue("searchsecret"); 
+    urlLoadSecret=base_url + "/loadSecretSearch?search=" + cari;
+    loadSecret(0);
+} 
+
 
 function loadSecret($pagenumber){
     if($pagenumber==0){
@@ -27,7 +41,7 @@ function loadSecret($pagenumber){
     };
     
     $.ajax({
-        url: base_url + "/loadSecret",
+        url: urlLoadSecret,
         method: "GET",
         data:formData,
         success: function (response) {
@@ -203,7 +217,17 @@ function loadSecret($pagenumber){
         }
     });
 }
+var urlLoadSecretActive=base_url + "/loadActive";
 
+function loaddatasecretactive(){
+    urlLoadSecretActive=base_url + "/loadActive";
+    loadActive(0);
+}
+function cariSecretActiveClick(){
+    var cari= getSelectorValue("searchsecretactive"); 
+    urlLoadSecretActive=base_url + "/loadSecretActiveSearch?search=" + cari;
+    loadActive(0);
+} 
 function loadActive($pagenumber){
     if($pagenumber==0){
         $pagenumber=1;
@@ -215,7 +239,7 @@ function loadActive($pagenumber){
     };
     
     $.ajax({
-        url: base_url + "/loadActive",
+        url: urlLoadSecretActive,
         method: "GET",
         data:formData,
         success: function (response) {
