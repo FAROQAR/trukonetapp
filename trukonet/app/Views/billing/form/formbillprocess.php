@@ -37,7 +37,7 @@
         <div class="card-footer">
             <button type="button" class="btn btn-danger" onclick="batalbillprocess()">Batal</button>
             <!-- <button id="btnSimpanServer" type="submit" class="btn btn-primary" onclick="simpanAddServer(this.id, this.textContent)">Simpan</button> -->
-            <button id="btnbillprocess" type="submit" class="btn btn-success" onclick="genBillIdpel()">Process</button>
+            <button id="btnbillprocessidpel" type="button" class="btn btn-success" onclick="genBillIdpel()">Process</button>
         </div>
     </form>
 </div>

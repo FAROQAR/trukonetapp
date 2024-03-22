@@ -314,6 +314,7 @@ function genBillIdpel() {
         confirmButtonText: "Yes"
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
+        
         if (result.isConfirmed) {
             //Swal.fire("Deleted!", "", "success"); 
             var $thbl = $('#thbl_billprocess').val().replace('-', '');
@@ -327,6 +328,8 @@ function genBillIdpel() {
                     //   showConfirmButton: false,
                     timer: 3000,
                 });
+                return;
+            }
                 if ($idpel == '') {
                     Swal.fire({
                         toast: false,
@@ -337,6 +340,7 @@ function genBillIdpel() {
                         timer: 3000,
                     });
                 } else {
+                    console.log("proses");
                     $.ajax({
                         // fixBug get url from global function only
                         // get global variable is bug!
@@ -374,7 +378,7 @@ function genBillIdpel() {
                         },
                     });
                 }
-            }
+            
         }
     });
 
